@@ -143,14 +143,19 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Engine.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="main.h" />
+    <None Include="Shaders\fragmentShader.glsl">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="Shaders\vertexShader.glsl">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
   </ItemGroup>
   <ItemGroup>
-    <FxCompile Include="fragmentShader.glsl" />
-    <FxCompile Include="vertexShader.glsl" />
+    <ClInclude Include="Engine.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
