@@ -15,6 +15,6 @@ private:
 	std::string ReadShaderSource(const char*);
 	void Init(GLFWwindow*);
 	void Display(GLFWwindow*, double);
-	GLuint createShaderProgram();
+	GLuint createShaderProgram(const char* vs, const char* fs);
 };
 

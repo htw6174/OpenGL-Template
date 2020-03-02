@@ -20,7 +20,7 @@ std::string Engine::ReadShaderSource(const char* filepath) {
 }
 
 void Engine::Init(GLFWwindow* window) {
-	renderingProgram = createShaderProgram();
+	renderingProgram = createShaderProgram("Shaders/vertexShader.glsl", "Shaders/fragmentShader.glsl");
 	glGenVertexArrays(1, vao);
 	glBindVertexArray(vao[0]);
 }
@@ -41,12 +41,12 @@ void Engine::Display(GLFWwindow* window, double currentTime) {
 	glDrawArrays(GL_TRIANGLES, 0, 3);
 }
 
-GLuint Engine::createShaderProgram() {
+GLuint Engine::createShaderProgram(const char* vs, const char* fs) {
 	GLuint vShader = glCreateShader(GL_VERTEX_SHADER);
 	GLuint fShader = glCreateShader(GL_FRAGMENT_SHADER);
 
-	std::string vshade = ReadShaderSource("Shaders/vertexShader.glsl");
-	std::string fshade = ReadShaderSource("Shaders/fragmentShader.glsl");
+	std::string vshade = ReadShaderSource(vs);
+	std::string fshade = ReadShaderSource(fs);
 
 	const char* vshaderSource = vshade.c_str(); //these calls dont work yet :/
 	const char* fshaderSource = fshade.c_str();
