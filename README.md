@@ -13,6 +13,6 @@ To build this project in Visual Studio 2019:
   
 If you get the warning:
 
-  warning LNK4098: defaultlib <library> conflicts with use of other libs; use /NODEFAULTLIB:library
+  warning LNK4098: defaultlib \<library\> conflicts with use of other libs; use /NODEFAULTLIB:library
   
 Open the project properties window, go to Linker -> Input -> Ignore Specific Default Libraries and add the conflicting library
