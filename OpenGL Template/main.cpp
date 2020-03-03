@@ -37,11 +37,19 @@ GLuint createShaderProgram() {
 	return vfprogram;
 }
 
-void init(GLFWwindow* window) {}
+void init(GLFWwindow* window) {
+	renderingProgram = createShaderProgram();
+	glGenVertexArrays(numVAOs, vao);
+	glBindVertexArray(vao[0]);
+}
 
 void display(GLFWwindow* window, double currentTime) {
-	glClearColor(1.0, 0.0, 0.0, 1.0);
+	glClearColor(0.0, 0.0, 0.0, 1.0);
 	glClear(GL_COLOR_BUFFER_BIT);
+
+	glUseProgram(renderingProgram);
+	glPointSize(30.0f);
+	glDrawArrays(GL_POINTS, 0, 1);
 }
 
 int main(void) {
