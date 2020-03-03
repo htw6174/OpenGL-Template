@@ -43,12 +43,12 @@ void AddQuad(glm::vec2 size) {
 }
 
 void Engine::Init(GLFWwindow* window) {
-	ortho = glm::perspective(1.45f, 8.0f / 6.0f, 0.1f, 100.0f);
+	ortho = glm::ortho(0.0f, (float)800, (float)600, 0.0f, 0.0f, 100.0f);
 	renderingProgram = createShaderProgram("Shaders/vertexShader.glsl", "Shaders/fragmentShader.glsl");
 	glGenVertexArrays(1, vao);
 	glBindVertexArray(vao[0]);
 	glGenBuffers(numObjects, vbo);
-	AddQuad(glm::vec2(0.5f, 0.5f));
+	AddQuad(glm::vec2(2.5f, 2.5f));
 }
 
 void Engine::Display(GLFWwindow* window, double currentTime) {
