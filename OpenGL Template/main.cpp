@@ -79,8 +79,8 @@ void display(GLFWwindow* window, double currentTime)
 	glClear(GL_COLOR_BUFFER_BIT);
 
 	glUseProgram(renderingProgram);
-	glPointSize(50.0f);
-	glDrawArrays(GL_POINTS, 0, 1);
+	//glPointSize(50.0f);
+	glDrawArrays(GL_TRIANGLES, 0, 3);
 
 }
 
