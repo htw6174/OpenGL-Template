@@ -17,19 +17,16 @@ GLuint createShaderProgram()
 	GLint fragCompiled;
 	GLint linked;
 
-	const char* vshaderSource =
-		"#version 430 \n"
-		"void main(void) \n"
-		"{gl_Position = vec4(0.0,0.0,0.0,1.0);}";
-	const char* fshaderSource = 
-		"#version 430 \n"
-		"out vec4 color; \n"
-		"void main(void) \n"
-		"{ if (gl_FragCoord.x < 300) color=vec4(1.0, 0.0, 0.0, 1.0); else color=vec4(0.0, 0.0, 1.0, 1.0);\n}";
+	string vertShaderString = Utils::readShaderSource("vertShader.glsl");
+	string fragShaderString = Utils::readShaderSource("fragShader.glsl");
+
+	const char* vertShaderSource = vertShaderString.c_str();
+		
+	const char* fragShaderSource = fragShaderString.c_str();
 
 	// Catch Errors while compiling Shaders
 	GLuint vShader = glCreateShader(GL_VERTEX_SHADER);
-	glShaderSource(vShader, 1, &vshaderSource, NULL);
+	glShaderSource(vShader, 1, &vertShaderSource, NULL);
 	glCompileShader(vShader);
 	Utils::checkOpenGLError();
 	glGetShaderiv(vShader, GL_COMPILE_STATUS, &vertCompiled);
@@ -40,7 +37,7 @@ GLuint createShaderProgram()
 	}
 
 	GLuint fShader = glCreateShader(GL_FRAGMENT_SHADER);
-	glShaderSource(fShader, 1, &fshaderSource, NULL);
+	glShaderSource(fShader, 1, &fragShaderSource, NULL);
 	glCompileShader(fShader);
 	Utils::checkOpenGLError();
 	glGetShaderiv(fShader, GL_COMPILE_STATUS, &fragCompiled);

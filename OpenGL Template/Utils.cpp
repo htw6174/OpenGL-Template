@@ -1,5 +1,7 @@
 #include <GL\glew.h>
 #include <iostream>
+#include <string>
+#include <fstream>
 	
 
 namespace Utils
@@ -46,5 +48,19 @@ namespace Utils
 			glErr = glGetError();
 		}
 		return foundError;
+	}
+
+	std::string readShaderSource(const char* filePath) 
+	{
+		std::string content;
+		std::ifstream fileStream(filePath, std::ios::in);
+		std::string line = "";
+		while (!fileStream.eof())
+		{
+			std::getline(fileStream, line);
+			content.append(line + "\n");
+		}
+		fileStream.close();
+		return content;
 	}
 }
