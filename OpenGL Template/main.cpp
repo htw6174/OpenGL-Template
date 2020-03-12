@@ -20,8 +20,8 @@ GLuint createShaderProgram()
 	GLint fragCompiled;
 	GLint linked;
 
-	string vertShaderString = Utils::readShaderSource("vertShader.glsl");
-	string fragShaderString = Utils::readShaderSource("fragShader.glsl");
+	string vertShaderString = Utils::readShaderFile("vertShader.glsl");
+	string fragShaderString = Utils::readShaderFile("fragShader.glsl");
 
 	const char* vertShaderSource = vertShaderString.c_str();
 		
