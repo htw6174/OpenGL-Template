@@ -24,7 +24,7 @@ GLuint vbo[numVBOs];
 GLuint mvLoc, projLoc;
 int width, height;
 float aspect;
-glm::mat4 pMat, vMat, mMat, mvMat;
+glm::mat4 pMat, vMat, mMat, tMat, rMat, mvMat;
 
 void setupVertices(void) 
 {
@@ -78,31 +78,37 @@ void display(GLFWwindow* window, double currentTime)
 	glfwGetFramebufferSize(window, &width, &height);
 	aspect = (float)width / (float)height;
 	pMat = glm::perspective(1.0472f, aspect, 0.1f, 1000.0f); // 1.0472 is 60 degrees vertical FOV
-
-	// set new model positions
-
-	cubeLocX = 5.0f*cos(currentTime);
-	cubeLocY = 5.0f*sin(currentTime);
-
+	    
 	// build view matrix, model matrix, then MV matrix
 	vMat = glm::translate(glm::mat4(1.0f), glm::vec3(-cameraX, -cameraY, -cameraZ));
-	mMat = glm::translate(glm::mat4(1.0f), glm::vec3(cubeLocX, cubeLocY, cubeLocZ));
-	mvMat = vMat * mMat;
 
-	// Copy Perspective and MV matrices to the Uniform Variables
-	glUniformMatrix4fv(mvLoc, 1, GL_FALSE, glm::value_ptr(mvMat));
-	glUniformMatrix4fv(projLoc, 1, GL_FALSE, glm::value_ptr(pMat));
+	for (int i = 0; i < 20; i++)
+	{
+		// set new model positions
+		cubeLocX = 5.0f * cos(currentTime+(double)i/(double)glm::pi<double>());
+		cubeLocY = 5.0f * sin(currentTime+(double)i/(double)glm::pi<double>());
 
-	// Associate VBO with the vertex attribute in the vertex shader
-	glBindBuffer(GL_ARRAY_BUFFER, vbo[0]);
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, 0);
-	glEnableVertexAttribArray(0);
-	
-	// adjust OpenGL Settings and draw model
-	glEnable(GL_DEPTH_TEST);
-	glDepthFunc(GL_LEQUAL);
-	glDrawArrays(GL_TRIANGLES, 0, 36);
+		tMat = glm::translate(glm::mat4(1.0f), glm::vec3(cubeLocX, cubeLocY, cubeLocZ));
+		rMat = glm::rotate(glm::mat4(1.0f), 1.5f * (float)currentTime, glm::vec3(1.0f, 0.0f, 0.0f));
+		rMat = glm::rotate(rMat, 1.5f * (float)currentTime, glm::vec3(0.0f, 1.0f, 0.0f));
+		rMat = glm::rotate(rMat, 1.5f * (float)currentTime, glm::vec3(0.0f, 0.0f, 1.0f));
+		mMat = tMat * rMat;
+		mvMat = vMat * mMat;
 
+		// Copy Perspective and MV matrices to the Uniform Variables
+		glUniformMatrix4fv(mvLoc, 1, GL_FALSE, glm::value_ptr(mvMat));
+		glUniformMatrix4fv(projLoc, 1, GL_FALSE, glm::value_ptr(pMat));
+
+		// Associate VBO with the vertex attribute in the vertex shader
+		glBindBuffer(GL_ARRAY_BUFFER, vbo[0]);
+		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, 0);
+		glEnableVertexAttribArray(0);
+
+		// adjust OpenGL Settings and draw model
+		glEnable(GL_DEPTH_TEST);
+		glDepthFunc(GL_LEQUAL);
+		glDrawArrays(GL_TRIANGLES, 0, 36);
+	}
 }
 
 int main(void) 
