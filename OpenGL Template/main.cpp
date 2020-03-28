@@ -53,11 +53,11 @@ void setupVertices(void)
 }
 
 
-void init(GLFWwindow* window) 
+void init(GLFWwindow* window)
 {
 	renderingProgram = Utils::createShaderProgram("vertShader.glsl", "fragShader.glsl");
-	cameraX = 0.0f; cameraY = 0.0f; cameraZ = 0.0f;
-	cubeLocX = 0.0f; cubeLocY = -2.0f; cubeLocZ = 0.0f;
+	cameraX = 0.0f; cameraY = 0.0f; cameraZ = 8.0f;
+	cubeLocX = 0.0f; cubeLocY = -3.0f; cubeLocZ = -5.0f;
 	
 	setupVertices();
 }
@@ -102,14 +102,13 @@ void display(GLFWwindow* window, double currentTime)
 
 int main(void) 
 {
-
 	cout << "Hello World!" << endl;
 	if (!glfwInit()) {
 		exit(EXIT_FAILURE);
 	}
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
-	GLFWwindow* window = glfwCreateWindow(600, 600, "Chapter 2 - program 2", NULL, NULL);
+	GLFWwindow* window = glfwCreateWindow(600, 600, "CUBE!", NULL, NULL);
 	glfwMakeContextCurrent(window);
 	if (glewInit() != GLEW_OK) {
 		exit(EXIT_FAILURE);
@@ -117,6 +116,11 @@ int main(void)
 	glfwSwapInterval(1);
 
 	init(window);
+
+	Utils::checkOpenGLError();
+	Utils::printShaderLog(renderingProgram);
+	Utils::printProgramLog(renderingProgram);
+
 
 	while (!glfwWindowShouldClose(window)) {
 		display(window, glfwGetTime());
