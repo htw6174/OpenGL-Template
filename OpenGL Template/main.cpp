@@ -21,9 +21,9 @@ GLuint vao[numVAOs];
 GLuint vbo[numVBOs];
 
 // allocate variables used in display() to avoid allocating them every frame
-GLuint mvLoc, projLoc;
+GLuint vLoc, projLoc, timeOffsetLoc;
 int width, height;
-float aspect;
+float aspect, timeOffset;
 glm::mat4 pMat, vMat, mMat, tMat, rMat, mvMat;
 
 void setupVertices(void) 
@@ -56,10 +56,19 @@ void setupVertices(void)
 void init(GLFWwindow* window)
 {
 	renderingProgram = Utils::createShaderProgram("vertShader.glsl", "fragShader.glsl");
-	cameraX = 0.0f; cameraY = 0.0f; cameraZ = 8.0f;
-	cubeLocX = 0.0f; cubeLocY = -3.0f; cubeLocZ = -5.0f;
-	
+
+	glfwGetFramebufferSize(window, &width, &height);
+	aspect = (float)width / (float)height;
+	pMat = glm::perspective(1.0472f, aspect, 0.1f, 1000.0f);
+
+	cameraX = 0.0f; cameraY = 0.0f; cameraZ = 500.0f;
 	setupVertices();
+}
+
+void window_size_callback(GLFWwindow* win, int newWidth, int newHeight) {
+	aspect = (float)newWidth / (float)newHeight;
+	glViewport(0, 0, newWidth, newHeight);
+	pMat = glm::perspective(1.0472f, aspect, 0.1f, 1000.0f);
 }
 
 void display(GLFWwindow* window, double currentTime) 
@@ -70,45 +79,31 @@ void display(GLFWwindow* window, double currentTime)
 
 	glUseProgram(renderingProgram);
 
-	// get uniform variables for the mv and projection matrices
-	mvLoc = glGetUniformLocation(renderingProgram, "mv_matrix");
+	// get uniform variables for the v and projection matrices
+	vLoc = glGetUniformLocation(renderingProgram, "v_matrix");
 	projLoc = glGetUniformLocation(renderingProgram, "proj_matrix");
 
-	// build perspective matrix
-	glfwGetFramebufferSize(window, &width, &height);
-	aspect = (float)width / (float)height;
-	pMat = glm::perspective(1.0472f, aspect, 0.1f, 1000.0f); // 1.0472 is 60 degrees vertical FOV
-	    
 	// build view matrix, model matrix, then MV matrix
 	vMat = glm::translate(glm::mat4(1.0f), glm::vec3(-cameraX, -cameraY, -cameraZ));
 
-	for (int i = 0; i < 20; i++)
-	{
-		// set new model positions
-		cubeLocX = 5.0f * cos(currentTime+(double)i/(double)glm::pi<double>());
-		cubeLocY = 5.0f * sin(currentTime+(double)i/(double)glm::pi<double>());
+	// Copy Perspective and V matrices to the Uniform Variables
+	glUniformMatrix4fv(vLoc, 1, GL_FALSE, glm::value_ptr(vMat));
+	glUniformMatrix4fv(projLoc, 1, GL_FALSE, glm::value_ptr(pMat));
 
-		tMat = glm::translate(glm::mat4(1.0f), glm::vec3(cubeLocX, cubeLocY, cubeLocZ));
-		rMat = glm::rotate(glm::mat4(1.0f), 1.5f * (float)currentTime, glm::vec3(1.0f, 0.0f, 0.0f));
-		rMat = glm::rotate(rMat, 1.5f * (float)currentTime, glm::vec3(0.0f, 1.0f, 0.0f));
-		rMat = glm::rotate(rMat, 1.5f * (float)currentTime, glm::vec3(0.0f, 0.0f, 1.0f));
-		mMat = tMat * rMat;
-		mvMat = vMat * mMat;
+	timeOffset = (float)currentTime;
+	timeOffsetLoc = glGetUniformLocation(renderingProgram, "time_offset");
+	glUniform1f(timeOffsetLoc, (float)timeOffset);
 
-		// Copy Perspective and MV matrices to the Uniform Variables
-		glUniformMatrix4fv(mvLoc, 1, GL_FALSE, glm::value_ptr(mvMat));
-		glUniformMatrix4fv(projLoc, 1, GL_FALSE, glm::value_ptr(pMat));
+	// Associate VBO with the vertex attribute in the vertex shader
+	glBindBuffer(GL_ARRAY_BUFFER, vbo[0]);
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, 0);
+	glEnableVertexAttribArray(0);
 
-		// Associate VBO with the vertex attribute in the vertex shader
-		glBindBuffer(GL_ARRAY_BUFFER, vbo[0]);
-		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, 0);
-		glEnableVertexAttribArray(0);
+	// adjust OpenGL Settings and draw model
+	glEnable(GL_DEPTH_TEST);
+	glDepthFunc(GL_LEQUAL);
 
-		// adjust OpenGL Settings and draw model
-		glEnable(GL_DEPTH_TEST);
-		glDepthFunc(GL_LEQUAL);
-		glDrawArrays(GL_TRIANGLES, 0, 36);
-	}
+	glDrawArraysInstanced(GL_TRIANGLES, 0, 36, 100000);
 }
 
 int main(void) 
@@ -125,6 +120,8 @@ int main(void)
 		exit(EXIT_FAILURE);
 	}
 	glfwSwapInterval(1);
+
+	glfwSetWindowSizeCallback(window, window_size_callback);
 
 	init(window);
 
