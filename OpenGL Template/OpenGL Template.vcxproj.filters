@@ -23,16 +23,16 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Shaders\fragmentShader.glsl">
-      <Filter>Shaders</Filter>
-    </None>
-    <None Include="Shaders\vertexShader.glsl">
-      <Filter>Shaders</Filter>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
     <ClInclude Include="Utils.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="fragShader.glsl">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="vertShader.glsl">
+      <Filter>Shaders</Filter>
+    </None>
   </ItemGroup>
 </Project>

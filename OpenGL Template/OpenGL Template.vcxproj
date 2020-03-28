@@ -146,15 +146,11 @@
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Shaders\fragmentShader.glsl">
-      <DeploymentContent>true</DeploymentContent>
-    </None>
-    <None Include="Shaders\vertexShader.glsl">
-      <DeploymentContent>true</DeploymentContent>
-    </None>
+    <ClInclude Include="Utils.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Utils.h" />
+    <None Include="fragShader.glsl" />
+    <None Include="vertShader.glsl" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

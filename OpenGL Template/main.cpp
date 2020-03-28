@@ -54,7 +54,7 @@ void setupVertices(void)
 
 void init(GLFWwindow* window)
 {
-	renderingProgram = Utils::createShaderProgram("vertexShader.glsl", "fragmentShader.glsl");
+	renderingProgram = Utils::createShaderProgram("vertShader.glsl", "fragShader.glsl");
 
 	glfwGetFramebufferSize(window, &width, &height);
 	aspect = (float)width / (float)height;
