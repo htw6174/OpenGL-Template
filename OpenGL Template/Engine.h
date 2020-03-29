@@ -1,6 +1,7 @@
 #pragma once
 
 #include "GameBase.h"
+#include "Renderer.h"
 
 class Engine {
 
@@ -11,6 +12,8 @@ private:
 	float FramesPerSecond;
 	float UpdatesPerSecond;
 	int ScreenWidth, ScreenHeight;
+
+	Renderer* renderer;
 
 public:
 	Engine(GameBase*);

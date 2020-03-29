@@ -144,6 +144,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Engine.cpp" />
+    <ClCompile Include="GameBase.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="TestGame.cpp" />
@@ -153,6 +154,7 @@
     <ClInclude Include="Engine.h" />
     <ClInclude Include="GameBase.h" />
     <ClInclude Include="Renderer.h" />
+    <ClInclude Include="TestGame.h" />
     <ClInclude Include="Utils.h" />
   </ItemGroup>
   <ItemGroup>

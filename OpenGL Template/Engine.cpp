@@ -7,7 +7,15 @@ Engine::Engine(GameBase* game) {
 }
 
 void Engine::Start() {
+
+	this->renderer = new Renderer(600, 600);
+	this->renderer->Start();
 	this->game->Start();
+
+	while (true) {
+		Update();
+		Render();
+	}
 }
 
 void Engine::Update() {
@@ -16,10 +24,12 @@ void Engine::Update() {
 
 void Engine::Render() {
 	this->game->Render();
+	this->renderer->Render();
 }
 
 void Engine::Exit() {
 	this->game->Exit();
+	this->renderer->Exit();
 }
 
 //Engine Setup Functions (Called by the GameBase Implementation class)
