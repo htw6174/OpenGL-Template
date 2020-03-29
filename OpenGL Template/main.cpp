@@ -8,6 +8,10 @@
 #include <glm\gtc\matrix_transform.hpp>
 #include "Utils.h"
 
+//////////
+#include "Engine.h"
+#include "TestGame.cpp"
+
 using namespace std;
 
 #define numVAOs 1
@@ -105,7 +109,7 @@ void display(GLFWwindow* window, double currentTime)
 	glDrawArraysInstanced(GL_TRIANGLES, 0, 36, 100000);
 }
 
-int main(void)
+/*int main(void)
 {
 	cout << "Hello World!" << endl;
 	if (!glfwInit()) {
@@ -138,4 +142,13 @@ int main(void)
 	glfwDestroyWindow(window);
 	glfwTerminate();
 	exit(EXIT_SUCCESS);
+}*/
+
+int main(void) {
+
+	TestGame game;
+
+	Engine* engine = new Engine(&game);
+
+	engine->Start();
 }

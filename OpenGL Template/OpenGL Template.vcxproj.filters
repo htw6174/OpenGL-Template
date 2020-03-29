@@ -16,6 +16,15 @@
     <Filter Include="Shaders">
       <UniqueIdentifier>{4a9c9b19-89e4-4eea-b5c6-dda25da67e9b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Engine">
+      <UniqueIdentifier>{81b620bf-bad7-4d5f-81ed-9bb8e524dec1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Engine\Source Files">
+      <UniqueIdentifier>{b41b4520-a678-4544-9ca4-12b7bb2006fa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Engine\Header Files">
+      <UniqueIdentifier>{83d6be8e-64a8-4d17-b02e-0016998a5245}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -24,10 +33,28 @@
     <ClCompile Include="Utils.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Engine.cpp">
+      <Filter>Source Files\Engine\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Renderer.cpp">
+      <Filter>Source Files\Engine\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="TestGame.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Utils.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine.h">
+      <Filter>Source Files\Engine\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderer.h">
+      <Filter>Source Files\Engine\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GameBase.h">
+      <Filter>Source Files\Engine\Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
