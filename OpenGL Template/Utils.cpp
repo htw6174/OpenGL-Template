@@ -2,7 +2,6 @@
 #include <iostream>
 #include <string>
 #include <fstream>
-	
 
 namespace Utils
 {
@@ -22,7 +21,7 @@ namespace Utils
 		}
 	}
 
-	void printProgramLog(int prog) 
+	void printProgramLog(int prog)
 	{
 		int len = 0;
 		int chWritten = 0;
@@ -37,11 +36,11 @@ namespace Utils
 		}
 	}
 
-	bool checkOpenGLError() 
+	bool checkOpenGLError()
 	{
 		bool foundError = false;
 		int glErr = glGetError();
-		while (glErr != GL_NO_ERROR) 
+		while (glErr != GL_NO_ERROR)
 		{
 			std::cout << "glError: " << glErr << std::endl;
 			foundError = true;
@@ -50,7 +49,7 @@ namespace Utils
 		return foundError;
 	}
 
-	std::string readShaderFile(const char* filePath) 
+	std::string readShaderFile(const char* filePath)
 	{
 		std::string content;
 		std::ifstream fileStream(filePath, std::ios::in);
@@ -152,4 +151,7 @@ namespace Utils
 		return vtgfprogram;
 	}
 
+	float clamp(float value, float min, float max) {
+		return std::fmax(min, std::fmin(max, value));
+	}
 }

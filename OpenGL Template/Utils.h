@@ -16,4 +16,6 @@ namespace Utils
     GLuint createShaderProgram(const char* vp, const char* gp, const char* fp);
     GLuint createShaderProgram(const char* vp, const char* tCS, const char* tES, const char* fp);
     GLuint createShaderProgram(const char* vp, const char* tCS, const char* tES, char* gp, const char* fp);
+    GLuint loadTexture(const char* texImagePath);
+    float clamp(float value, float min, float max);
 }
