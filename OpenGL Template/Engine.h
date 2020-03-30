@@ -18,11 +18,13 @@ private:
 public:
 	Engine(GameBase*);
 	void Start();
+
+private:
 	void Update();
 	void Render();
 	void Exit();
 
-	//Getters/Setters
+public:
 	void SetFPS(float);
 	void SetUPS(float);
 	void SetScreenSize(int, int);

@@ -99,7 +99,7 @@ void Renderer::Start() {
 	}
 	glfwSwapInterval(1);
 
-	//glfwSetWindowSizeCallback(window, window_size_callback);
+	glfwSetWindowSizeCallback(window, window_size_callback);
 
 	Init(window);
 
