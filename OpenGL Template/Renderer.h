@@ -14,7 +14,7 @@ class Renderer {
 #define numVAOs 1
 #define numVBOs 2
 
-private:
+public:
 	GLFWwindow* window;
 	int ScreenWidth, ScreenHeight;
 	float cameraX, cameraY, cameraZ;
@@ -31,11 +31,11 @@ private:
 
 public:
 	Renderer(int, int);
-	void Init(GLFWwindow*);
+	void Init();
 	void Start();
-	void Display(GLFWwindow*, double);
 	void Render();
-	void window_size_callback(GLFWwindow*, int, int);
-	void SetupVertices();
 	void Exit();
+private:
+	void Display();
+	void SetupVertices();
 };

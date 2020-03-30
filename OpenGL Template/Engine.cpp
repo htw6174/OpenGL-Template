@@ -8,9 +8,9 @@ Engine::Engine(GameBase* game) {
 
 void Engine::Start() {
 
-	this->renderer = new Renderer(600, 600);
-	this->renderer->Start();
+	this->renderer = new Renderer(800, 600);
 	this->game->Start();
+	this->renderer->Start();
 
 	while (true) {
 		Update();

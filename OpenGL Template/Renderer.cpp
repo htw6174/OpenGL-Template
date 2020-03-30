@@ -32,26 +32,21 @@ void Renderer::SetupVertices(void)
 	glBufferData(GL_ARRAY_BUFFER, sizeof(vertexPositions), vertexPositions, GL_STATIC_DRAW);
 }
 
-void Renderer::Init(GLFWwindow* window)
+void Renderer::Init()
 {
 	renderingProgram = Utils::createShaderProgram("vertShader.glsl", "fragShader.glsl");
-
-	glfwGetFramebufferSize(window, &(this->ScreenWidth), &(this->ScreenHeight));
-	aspect = (float)width / (float)height;
+	glfwGetFramebufferSize(window, &ScreenWidth, &ScreenHeight);
+	aspect = (float)ScreenWidth / (float)ScreenHeight;
 	pMat = glm::perspective(1.0472f, aspect, 0.1f, 1000.0f);
 
 	cameraX = 0.0f; cameraY = 0.0f; cameraZ = 500.0f;
 	SetupVertices();
 }
 
-void Renderer::window_size_callback(GLFWwindow* win, int newWidth, int newHeight) {
-	aspect = (float)newWidth / (float)newHeight;
-	glViewport(0, 0, newWidth, newHeight);
-	pMat = glm::perspective(1.0472f, aspect, 0.1f, 1000.0f);
-}
-
-void Renderer::Display(GLFWwindow* window, double currentTime)
+void Renderer::Display()
 {
+	double currentTime = glfwGetTime();
+
 	glClear(GL_DEPTH_BUFFER_BIT);
 	glClearColor(0.0, 1.0, 0.0, 1.0);
 	glClear(GL_COLOR_BUFFER_BIT);
@@ -86,22 +81,20 @@ void Renderer::Display(GLFWwindow* window, double currentTime)
 }
 
 void Renderer::Start() {
-	std::cout << "Hello World!" << std::endl;
 	if (!glfwInit()) {
 		exit(EXIT_FAILURE);
 	}
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
-	this->window = glfwCreateWindow(this->ScreenWidth, this->ScreenHeight, "CUBE!", NULL, NULL);
+	window = glfwCreateWindow(ScreenWidth, ScreenHeight, "CUBE!", NULL, NULL);
 	glfwMakeContextCurrent(window);
 	if (glewInit() != GLEW_OK) {
 		exit(EXIT_FAILURE);
 	}
 	glfwSwapInterval(1);
+	glfwWindowHint(GLFW_RESIZABLE, GLFW_FALSE);
 
-	glfwSetWindowSizeCallback(window, window_size_callback);
-
-	Init(window);
+	Init();
 
 	Utils::checkOpenGLError();
 	Utils::printShaderLog(renderingProgram);
@@ -109,7 +102,7 @@ void Renderer::Start() {
 }
 
 void Renderer::Render() {
-	Display(window, glfwGetTime());
+	Display();
 	glfwSwapBuffers(window);
 	glfwPollEvents();
 }
