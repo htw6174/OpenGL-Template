@@ -8,9 +8,9 @@ Engine::Engine(GameBase* game) {
 
 void Engine::Start() {
 
-	this->renderer = new Renderer(800, 600);
-	this->game->Start();
-	this->renderer->Start();
+	renderer = new Renderer(800, 600);
+	game->Start();
+	renderer->Start();
 
 	while (true) {
 		Update();
@@ -19,30 +19,30 @@ void Engine::Start() {
 }
 
 void Engine::Update() {
-	this->game->Update();
+	game->Update();
 }
 
 void Engine::Render() {
-	this->game->Render();
-	this->renderer->Render();
+	game->Render();
+	renderer->Render();
 }
 
 void Engine::Exit() {
-	this->game->Exit();
-	this->renderer->Exit();
+	game->Exit();
+	renderer->Exit();
 }
 
 //Engine Setup Functions (Called by the GameBase Implementation class)
 
 void Engine::SetFPS(float fps) {
-	this->FramesPerSecond = fps;
+	FramesPerSecond = fps;
 }
 
 void Engine::SetUPS(float ups) {
-	this->UpdatesPerSecond = ups;
+	UpdatesPerSecond = ups;
 }
 
 void Engine::SetScreenSize(int Width, int Height) {
-	this->ScreenWidth = Width;
-	this->ScreenHeight = Height;
+	ScreenWidth = Width;
+	ScreenHeight = Height;
 }
