@@ -1,4 +1,6 @@
-# OpenGL-Template
+# A simple game engine using the ECS pattern and OpenGL
+
+ECS method based on https://code.austinmorlan.com/austin/ecs
 
 To build this project in Visual Studio 2019:
 
