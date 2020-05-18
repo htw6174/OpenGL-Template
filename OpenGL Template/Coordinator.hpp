@@ -7,6 +7,8 @@
 #include <iostream>
 #include <typeinfo>
 
+#include <GLFW\glfw3.h>
+
 class Coordinator
 {
 private:
@@ -15,10 +17,12 @@ private:
 	std::unique_ptr<SystemManager> mSystemManager;
 
 	// TODO: Queues for enable/disable, add/destroy entities
+	GLFWwindow* window;
 
 public:
-	void Init()
+	void Init(GLFWwindow* mainWindow)
 	{
+		window = mainWindow;
 		mComponentManager = std::make_unique<ComponentManager>();
 		mEntityManager = std::make_unique<EntityManager>();
 		mSystemManager = std::make_unique<SystemManager>();
@@ -26,6 +30,11 @@ public:
 
 	// TODO: Update function, goes through entity queues
 
+
+	GLFWwindow* GetWindow()
+	{
+		return window;
+	}
 
 	// Entity methods
 	Entity CreateEntity()
@@ -139,7 +148,7 @@ public:
 		mSystemManager->InitSystems();
 	}
 
-	void UpdateSystems() {
-		mSystemManager->UpdateSystems();
+	void UpdateSystems(float deltaTime) {
+		mSystemManager->UpdateSystems(deltaTime);
 	}
 };

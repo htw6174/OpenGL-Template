@@ -150,6 +150,7 @@
     <ClCompile Include="BoxColliderSystem.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MeshUtils.cpp" />
+    <ClCompile Include="PlayerSystem.cpp" />
     <ClCompile Include="RenderSystem.cpp" />
     <ClCompile Include="Utils.cpp" />
   </ItemGroup>
@@ -164,6 +165,8 @@
     <ClInclude Include="Event.hpp" />
     <ClInclude Include="main.h" />
     <ClInclude Include="MeshUtils.h" />
+    <ClInclude Include="Player.hpp" />
+    <ClInclude Include="PlayerSystem.hpp" />
     <ClInclude Include="Renderable.hpp" />
     <ClInclude Include="RenderSystem.hpp" />
     <ClInclude Include="SOIL.h" />

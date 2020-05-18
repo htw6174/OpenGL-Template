@@ -34,7 +34,7 @@ public:
 	bool DrawBoundingBox; //maybe for debug purposes.
 
 	void Init() override;
-	void Update() override;
+	void Update(float deltaTime) override;
 	bool checkOverlap(Entity, Entity);
 	void Subscribe(Entity entity, BoxCollisionEventListener callback);
 

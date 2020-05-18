@@ -41,9 +41,9 @@ public:
 		}
 	}
 
-	void UpdateSystems() {
+	void UpdateSystems(float deltaTime) {
 		for (std::pair<const char*, std::shared_ptr<System>> system : mSystems) {
-			system.second->Update();
+			system.second->Update(deltaTime);
 		}
 	}
 

@@ -28,7 +28,7 @@ void RenderSystem::Init()
 		);
 }
 
-void RenderSystem::Update()
+void RenderSystem::Update(float deltaTime)
 {
 	glClear(GL_DEPTH_BUFFER_BIT);
 	glClearColor(1.0, 0.8, 0.6, 1.0);

@@ -17,7 +17,7 @@ void BoxColliderSystem::Init() {
 }
 
 
-void BoxColliderSystem::Update() {
+void BoxColliderSystem::Update(float deltaTime) {
 	std::list<std::pair<Entity, Entity>> collisions{};
 
 	// Detect collisions

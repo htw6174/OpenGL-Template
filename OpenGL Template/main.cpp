@@ -3,18 +3,20 @@
 #include "Renderable.hpp"
 #include "Transform.hpp"
 #include "BoxCollider.hpp"
+#include "Player.hpp"
 
 #include "Coordinator.hpp"
 #include "MeshUtils.h"
 
 #include "RenderSystem.hpp"
 #include "BoxColliderSystem.hpp"
+#include "PlayerSystem.hpp"
 
 #include "Event.hpp"
 
 #include "main.h"
-#include <GL\glew.h>
-#include <GLFW\glfw3.h>
+#include <GL/glew.h>
+#include <GLFW/glfw3.h>
 #include <iostream>
 #include <cstdlib>
 
@@ -28,6 +30,7 @@ glm::mat4 pMat;
 
 std::shared_ptr<RenderSystem> renderSystem;
 std::shared_ptr<BoxColliderSystem> boxColliderSystem;
+std::shared_ptr<PlayerSystem> playerSystem;
 
 void window_size_callback(GLFWwindow* win, int newWidth, int newHeight) {
 	aspect = (float)newWidth / (float)newHeight;
@@ -54,7 +57,9 @@ int main(void) {
 	}
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+	//glfwWindowHint(GLFW_DECORATED, GLFW_FALSE);
 	GLFWwindow* window = glfwCreateWindow(600, 600, "Asteroids", NULL, NULL);
+	//glfwSetWindowPos(window, 200, 100);
 	glfwMakeContextCurrent(window);
 	if (glewInit() != GLEW_OK) {
 		exit(EXIT_FAILURE);
@@ -62,12 +67,13 @@ int main(void) {
 	glfwSwapInterval(1);
 
 	init(window);
-	gCoordinator.Init();
+	gCoordinator.Init(window);
 
 	gCoordinator.RegisterComponent<Camera>();
 	gCoordinator.RegisterComponent<Transform>();
 	gCoordinator.RegisterComponent<Renderable>();
 	gCoordinator.RegisterComponent<BoxCollider>();
+	gCoordinator.RegisterComponent<Player>();
 
 	renderSystem = gCoordinator.RegisterSystem<RenderSystem>();
 	{
@@ -85,13 +91,21 @@ int main(void) {
 		gCoordinator.SetSystemSignature<BoxColliderSystem>(signature);
 	}
 
+	playerSystem = gCoordinator.RegisterSystem<PlayerSystem>();
+	{
+		Signature signature;
+		signature.set(gCoordinator.GetComponentType<Transform>());
+		signature.set(gCoordinator.GetComponentType<Player>());
+		gCoordinator.SetSystemSignature<PlayerSystem>(signature);
+	}
+
 	gCoordinator.InitSystems();
 
 	Transform cubeTransform = Transform();
 	cubeTransform.SetPosition(0.0f, -2.0f, 0.0f);
 
-	Transform pyramidTransform = Transform();
-	pyramidTransform.SetPosition(0.0f, 2.0f, 0.0f);
+	Transform playerTransform = Transform();
+	playerTransform.SetPosition(0.0f, 2.0f, 0.0f);
 
 	Entity cube = gCoordinator.CreateEntity();
 	gCoordinator.AddComponent<Transform>(
@@ -99,10 +113,10 @@ int main(void) {
 		cubeTransform
 		);
 
-	Entity pyramid = gCoordinator.CreateEntity();
+	Entity player = gCoordinator.CreateEntity();
 	gCoordinator.AddComponent<Transform>(
-		pyramid,
-		pyramidTransform
+		player,
+		playerTransform
 		);
 
 	// 2x2x2 cube at origin LEN 108
@@ -145,7 +159,7 @@ int main(void) {
 		-1.0f,  1.0f, -1.0f
 	};
 
-	//Pyramid with 18 vertices comprising 6 triangles (4 tri sides + 2 tri on bottom) LEN 54
+	//player with 18 vertices comprising 6 triangles (4 tri sides + 2 tri on bottom) LEN 54
 	float pyramidPositions[] = {
 		-1.0f, -1.0f, 1.0f, 1.0f, -1.0f, 1.0f, 0.0f, 1.0f, 0.0f,    //front
 		1.0f, -1.0f, 1.0f, 1.0f, -1.0f, -1.0f, 0.0f, 1.0f, 0.0f,    //right
@@ -167,15 +181,15 @@ int main(void) {
 		cubeRenderable
 		);
 
-	Renderable pyramidRenderable = Renderable();
-	pyramidRenderable.VAO = MeshUtils::LoadFromArray(pyramidPositions, 54);
-	pyramidRenderable.windingOrder = GL_CCW;
-	pyramidRenderable.VertShader = "vertShader.glsl";
-	pyramidRenderable.FragShader = "fragShader.glsl";
+	Renderable playerRenderable = Renderable();
+	playerRenderable.VAO = MeshUtils::LoadFromArray(pyramidPositions, 54);
+	playerRenderable.windingOrder = GL_CCW;
+	playerRenderable.VertShader = "vertShader.glsl";
+	playerRenderable.FragShader = "fragShader.glsl";
 
 	gCoordinator.AddComponent<Renderable>(
-		pyramid,
-		pyramidRenderable
+		player,
+		playerRenderable
 		);
 
 	renderSystem->SetupShader();
@@ -189,24 +203,35 @@ int main(void) {
 
 	boxColliderSystem->Subscribe(cube, TestCollisionCallback);
 
-	BoxCollider pyramidCollider = BoxCollider();
-	pyramidCollider.boundingBox = glm::vec3(2);
+	BoxCollider playerCollider = BoxCollider();
+	playerCollider.boundingBox = glm::vec3(2);
 	gCoordinator.AddComponent<BoxCollider>(
-		pyramid,
-		pyramidCollider
+		player,
+		playerCollider
 		);
 
-	//boxColliderSystem->Subscribe(pyramid, TestCollisionCallback);
+	//boxColliderSystem->Subscribe(player, TestCollisionCallback);
+
+	Player playerComponent = Player();
+	//playerComponent.speed = 10.0f;
+
+	gCoordinator.AddComponent(player, playerComponent);
 
 	Transform* camTrans = &gCoordinator.GetComponent<Transform>(renderSystem->mCamera);
 	camTrans->Translate(glm::vec3(0, 0, 15));
 
 	int frame = 0;
 
+	double previousTime = glfwGetTime();
+
 	while (!glfwWindowShouldClose(window)) {
-		
+		// Calculate delta time between the previous and current frame
+		double currentTime = glfwGetTime();
+		float deltaTime = static_cast<float>(currentTime - previousTime);
+		deltaTime = clamp(deltaTime, 0.0f, 0.1f);
+		previousTime = currentTime;
 		// TODO: Add universal update for systems to the system manager
-		gCoordinator.UpdateSystems();
+		gCoordinator.UpdateSystems(deltaTime);;
 
 		glfwSwapBuffers(window);
 		glfwPollEvents();
@@ -216,11 +241,11 @@ int main(void) {
 		if (frame % 4 <= 2)
 		{
 			gCoordinator.EnableEntity(cube);
-			gCoordinator.DisableEntity(pyramid);
+			gCoordinator.DisableEntity(player);
 		}
 		else
 		{
-			gCoordinator.EnableEntity(pyramid);
+			gCoordinator.EnableEntity(player);
 			gCoordinator.DisableEntity(cube);
 		}
 		frame++;
