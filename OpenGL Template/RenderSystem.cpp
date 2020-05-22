@@ -26,6 +26,8 @@ void RenderSystem::Init()
 		mCamera,
 		cam
 		);
+
+	mainRenderingProgram = Utils::createShaderProgram("vertShader.glsl", "fragShader.glsl");
 }
 
 void RenderSystem::Update(float deltaTime)
@@ -75,6 +77,6 @@ void RenderSystem::SetupShader()
 	for (auto const& entity : mEntities)
 	{
 		auto& renderable = gCoordinator.GetComponent<Renderable>(entity);
-		renderable.renderingProgram = Utils::createShaderProgram(renderable.VertShader, renderable.FragShader);
+		renderable.renderingProgram = mainRenderingProgram;
 	}
 }

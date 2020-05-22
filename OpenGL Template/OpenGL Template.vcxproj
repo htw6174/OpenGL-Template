@@ -169,6 +169,7 @@
     <ClInclude Include="PlayerSystem.hpp" />
     <ClInclude Include="Renderable.hpp" />
     <ClInclude Include="RenderSystem.hpp" />
+    <ClInclude Include="Shapes.hpp" />
     <ClInclude Include="SOIL.h" />
     <ClInclude Include="System.hpp" />
     <ClInclude Include="SystemManager.hpp" />

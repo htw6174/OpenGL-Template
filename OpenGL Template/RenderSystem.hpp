@@ -29,6 +29,8 @@ public:
 
 	void SetupShader();
 
+	GLuint mainRenderingProgram;
+
 private:
 	GLuint mvLoc, projLoc;
 

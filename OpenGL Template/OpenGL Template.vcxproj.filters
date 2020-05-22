@@ -110,6 +110,9 @@
     <ClInclude Include="Player.hpp">
       <Filter>Source Files\Components</Filter>
     </ClInclude>
+    <ClInclude Include="Shapes.hpp">
+      <Filter>Source Files\Core</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="vertShader.glsl">

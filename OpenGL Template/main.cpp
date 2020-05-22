@@ -7,6 +7,7 @@
 
 #include "Coordinator.hpp"
 #include "MeshUtils.h"
+#include "Shapes.hpp"
 
 #include "RenderSystem.hpp"
 #include "BoxColliderSystem.hpp"
@@ -102,7 +103,7 @@ int main(void) {
 	gCoordinator.InitSystems();
 
 	Transform cubeTransform = Transform();
-	cubeTransform.SetPosition(0.0f, -2.0f, 0.0f);
+	cubeTransform.SetPosition(-4.0f, 4.0f, 0.0f);
 
 	Transform playerTransform = Transform();
 	playerTransform.SetPosition(0.0f, 2.0f, 0.0f);
@@ -119,58 +120,8 @@ int main(void) {
 		playerTransform
 		);
 
-	// 2x2x2 cube at origin LEN 108
-	float cubePositions[] = {
-		-1.0f,  1.0f, -1.0f,
-		-1.0f, -1.0f, -1.0f,
-		1.0f, -1.0f, -1.0f,
-		1.0f, -1.0f, -1.0f,
-		1.0f,  1.0f, -1.0f,
-		-1.0f,  1.0f, -1.0f,
-		1.0f, -1.0f, -1.0f,
-		1.0f, -1.0f,  1.0f,
-		1.0f,  1.0f, -1.0f,
-		1.0f, -1.0f,  1.0f,
-		1.0f,  1.0f,  1.0f,
-		1.0f,  1.0f, -1.0f,
-		1.0f, -1.0f,  1.0f,
-		-1.0f, -1.0f,  1.0f,
-		1.0f,  1.0f,  1.0f,
-		-1.0f, -1.0f,  1.0f,
-		-1.0f,  1.0f,  1.0f,
-		1.0f,  1.0f,  1.0f,
-		-1.0f, -1.0f,  1.0f,
-		-1.0f, -1.0f, -1.0f,
-		-1.0f,  1.0f,  1.0f,
-		-1.0f, -1.0f, -1.0f,
-		-1.0f,  1.0f, -1.0f,
-		-1.0f,  1.0f,  1.0f,
-		-1.0f, -1.0f,  1.0f,
-		1.0f, -1.0f,  1.0f,
-		1.0f, -1.0f, -1.0f,
-		1.0f, -1.0f, -1.0f, 
-		-1.0f, -1.0f, -1.0f,
-		-1.0f, -1.0f,  1.0f,
-		-1.0f,  1.0f, -1.0f,
-		1.0f,  1.0f, -1.0f,
-		1.0f,  1.0f,  1.0f,
-		1.0f,  1.0f,  1.0f,
-		-1.0f,  1.0f,  1.0f,
-		-1.0f,  1.0f, -1.0f
-	};
-
-	//player with 18 vertices comprising 6 triangles (4 tri sides + 2 tri on bottom) LEN 54
-	float pyramidPositions[] = {
-		-1.0f, -1.0f, 1.0f, 1.0f, -1.0f, 1.0f, 0.0f, 1.0f, 0.0f,    //front
-		1.0f, -1.0f, 1.0f, 1.0f, -1.0f, -1.0f, 0.0f, 1.0f, 0.0f,    //right
-		1.0f, -1.0f, -1.0f, -1.0f, -1.0f, -1.0f, 0.0f, 1.0f, 0.0f,  //back
-		-1.0f, -1.0f, -1.0f, -1.0f, -1.0f, 1.0f, 0.0f, 1.0f, 0.0f,  //left
-		-1.0f, -1.0f, -1.0f, 1.0f, -1.0f, 1.0f, -1.0f, -1.0f, 1.0f, //LF
-		1.0f, -1.0f, 1.0f, -1.0f, -1.0f, -1.0f, 1.0f, -1.0f, -1.0f  //RR
-	};
-
 	Renderable cubeRenderable = Renderable();
-	cubeRenderable.VAO = MeshUtils::LoadFromArray(cubePositions, 108);
+	cubeRenderable.VAO = MeshUtils::LoadFromArray(cubeVertexPositions, 108);
 	cubeRenderable.windingOrder = GL_CW;
 	//here im just setting the shader filenames, but we could probably do this better
 	cubeRenderable.VertShader = "vertShader.glsl";
@@ -182,7 +133,7 @@ int main(void) {
 		);
 
 	Renderable playerRenderable = Renderable();
-	playerRenderable.VAO = MeshUtils::LoadFromArray(pyramidPositions, 54);
+	playerRenderable.VAO = MeshUtils::LoadFromArray(pyramidVertexPositions, 54);
 	playerRenderable.windingOrder = GL_CCW;
 	playerRenderable.VertShader = "vertShader.glsl";
 	playerRenderable.FragShader = "fragShader.glsl";
