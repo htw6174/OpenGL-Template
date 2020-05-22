@@ -25,7 +25,7 @@ void BulletSystem::Update(float deltaTime)
 			)
 		);
 
-		bulletComponent.lifetime -= 0.1f;
+		bulletComponent.lifetime -=  deltaTime;
 		if (bulletComponent.lifetime < 0)
 		{
 			bulletsToDestroy.emplace(entity);
