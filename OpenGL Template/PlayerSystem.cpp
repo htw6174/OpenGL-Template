@@ -96,7 +96,7 @@ void PlayerSystem::FireBullet(Transform& transform)
 {
 	// TODO: Restrain the fire rate
 
-	std::cout << "Bullet Fired!" << std::endl;
+	//std::cout << "Bullet Fired!" << std::endl;
 
 	// make bullet Entity
 	Entity bullet = gCoordinator.CreateEntity();
@@ -106,6 +106,7 @@ void PlayerSystem::FireBullet(Transform& transform)
 	// set position
 	bulletTransform.SetPosition(transform.GetPosition());
 	bulletTransform.SetRotationEulerAngles(transform.GetRotationEulerAngles());
+	
 	gCoordinator.AddComponent<Transform>(
 		bullet,
 		bulletTransform
@@ -124,10 +125,20 @@ void PlayerSystem::FireBullet(Transform& transform)
 
 	renderSystem->SetupShader();
 
-	// Attach a bullet component
+	// attach a BoxCollider
+	BoxCollider bulletBoxCollider = BoxCollider();
+	bulletBoxCollider.boundingBox = glm::vec3(1);
+	gCoordinator.AddComponent<BoxCollider>(
+		bullet,
+		bulletBoxCollider
+	);
 
-	// set speed
-	// set lifetime
+	// Attach a bullet component
+	Bullet bulletComponent = Bullet();
+	gCoordinator.AddComponent<Bullet>(
+		bullet,
+		bulletComponent
+	);
 
 
 }

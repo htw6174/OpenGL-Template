@@ -4,6 +4,7 @@
 #include "Transform.hpp"
 #include "BoxCollider.hpp"
 #include "Player.hpp"
+#include "Bullet.hpp"
 
 #include "Coordinator.hpp"
 #include "MeshUtils.h"
@@ -12,6 +13,7 @@
 #include "RenderSystem.hpp"
 #include "BoxColliderSystem.hpp"
 #include "PlayerSystem.hpp"
+#include "BulletSystem.hpp"
 
 #include "Event.hpp"
 
@@ -32,6 +34,7 @@ glm::mat4 pMat;
 std::shared_ptr<RenderSystem> renderSystem;
 std::shared_ptr<BoxColliderSystem> boxColliderSystem;
 std::shared_ptr<PlayerSystem> playerSystem;
+std::shared_ptr<BulletSystem> bulletSystem;
 
 void window_size_callback(GLFWwindow* win, int newWidth, int newHeight) {
 	aspect = (float)newWidth / (float)newHeight;
@@ -75,6 +78,8 @@ int main(void) {
 	gCoordinator.RegisterComponent<Renderable>();
 	gCoordinator.RegisterComponent<BoxCollider>();
 	gCoordinator.RegisterComponent<Player>();
+	gCoordinator.RegisterComponent<Bullet>();
+
 
 	renderSystem = gCoordinator.RegisterSystem<RenderSystem>();
 	{
@@ -97,7 +102,17 @@ int main(void) {
 		Signature signature;
 		signature.set(gCoordinator.GetComponentType<Transform>());
 		signature.set(gCoordinator.GetComponentType<Player>());
-		gCoordinator.SetSystemSignature<PlayerSystem>(signature);
+		gCoordinator.SetSystemSignature<PlayerSystem>(signature); // TODO: Shouldn't this have a renderable on it?
+	}
+
+	bulletSystem = gCoordinator.RegisterSystem<BulletSystem>();
+	{
+		Signature signature;
+		signature.set(gCoordinator.GetComponentType<Transform>());
+		signature.set(gCoordinator.GetComponentType<BoxCollider>());
+		signature.set(gCoordinator.GetComponentType<Bullet>());
+		signature.set(gCoordinator.GetComponentType<Renderable>());
+		gCoordinator.SetSystemSignature<BulletSystem>(signature);
 	}
 
 	gCoordinator.InitSystems();
@@ -202,15 +217,15 @@ int main(void) {
 		frame++;
 		*/
 
-		float sinTime = sin(glfwGetTime());
-		float cosTime = cos(glfwGetTime());
+		float sinTime = deltaTime * sin(glfwGetTime());
+		float cosTime = deltaTime * cos(glfwGetTime());
 		// TODO: Find a way to handle getting a non-existant component without try-catch blocks
 		try
 		{
 			Transform* CubeTrans = &gCoordinator.GetComponent<Transform>(cube);
-			CubeTrans->Translate(glm::vec3(cosTime * 0.03f, sinTime * 0.03f, 0.0f));
+			CubeTrans->Translate(glm::vec3(cosTime * 3.f, sinTime * 3.f, 0.0f));
 			//CubeTrans->SetRotationEulerAngles(glm::vec3(0.0f, glm::pi<float>() / 4.0f, 0.0f));
-			CubeTrans->RotateByDegrees(2.0f, glm::vec3(sinTime, cosTime, 0.0f));
+			CubeTrans->RotateByDegrees( 100. * sinTime, glm::vec3(1.0f, 1.0, 0.0f));
 		}
 		catch (...)
 		{

@@ -6,6 +6,7 @@
 #include "Renderable.hpp"
 #include "BoxCollider.hpp"
 #include "Player.hpp"
+#include "Bullet.hpp"
 #include "Utils.h"
 
 #include "System.hpp"

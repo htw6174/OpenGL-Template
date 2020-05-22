@@ -4,6 +4,7 @@
 #include <queue>
 #include <array>
 #include <cassert>
+#include <iostream>
 
 class EntityManager
 {
@@ -28,6 +29,7 @@ public:
 		mAvailableEntities.pop();
 		++mLivingEntityCount;
 
+		std::cout << "Living: " << mLivingEntityCount << std::endl;
 		return id;
 	}
 
@@ -38,6 +40,7 @@ public:
 		mSignatures[entity].reset();
 		mAvailableEntities.push(entity);
 		--mLivingEntityCount;
+		std::cout << "Living: " << mLivingEntityCount << std::endl;
 	}
 
 	bool EntityExists(Entity entity)

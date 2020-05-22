@@ -48,6 +48,9 @@
     <ClCompile Include="PlayerSystem.cpp">
       <Filter>Source Files\Systems</Filter>
     </ClCompile>
+    <ClCompile Include="BulletSystem.cpp">
+      <Filter>Source Files\Systems</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -112,6 +115,12 @@
     </ClInclude>
     <ClInclude Include="Shapes.hpp">
       <Filter>Source Files\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Bullet.hpp">
+      <Filter>Source Files\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="BulletSystem.hpp">
+      <Filter>Source Files\Systems</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
