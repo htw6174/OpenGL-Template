@@ -226,8 +226,9 @@ int main(void) {
 			CubeTrans->Translate(glm::vec3(cosTime * 3.f, sinTime * 3.f, 0.0f));
 			//CubeTrans->SetRotationEulerAngles(glm::vec3(0.0f, glm::pi<float>() / 4.0f, 0.0f));
 			CubeTrans->RotateByDegrees( 100. * sinTime, glm::vec3(1.0f, 1.0f, 1.0f));
+			CubeTrans->SetScale(glm::vec3(2.5f, 0.5f, 2.5f));
 			//CubeTrans->RotateByDegrees(2.0f, glm::vec3(sinTime, cosTime, 0.0f));
-			std::cout << CubeTrans->GetRotation().w << std::endl;
+			//std::cout << CubeTrans->GetRotation().w << std::endl;
 		}
 		catch (...)
 		{

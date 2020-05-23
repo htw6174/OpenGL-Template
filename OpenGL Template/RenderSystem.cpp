@@ -52,9 +52,12 @@ void RenderSystem::Update(float deltaTime)
 		pMat = camera.projectionTransform;
 
 		vMat = glm::translate(glm::mat4(1.0f), -camTransform.GetPosition());
-		mMat = glm::translate(glm::mat4(1.0f), transform.GetPosition());
+		glm::mat4x4 scaleMatrix = glm::scale(glm::mat4(1.0f), transform.GetScale());
+		glm::mat4x4 translateMatrix = glm::translate(glm::mat4(1.0f), transform.GetPosition());
 		glm::mat4x4 rotationMatrix = glm::toMat4(transform.GetRotation());
+		mMat = translateMatrix;
 		mMat *= rotationMatrix;
+		mMat *= scaleMatrix;
 		mvMat = vMat * mMat;
 
 		glUniformMatrix4fv(mvLoc, 1, GL_FALSE, glm::value_ptr(mvMat));
