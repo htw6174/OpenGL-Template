@@ -106,6 +106,7 @@ void PlayerSystem::FireBullet(Transform& transform)
 	// set position
 	bulletTransform.SetPosition(transform.GetPosition());
 	bulletTransform.SetRotationEulerAngles(transform.GetRotationEulerAngles());
+	bulletTransform.SetScale(transform.GetScale() * 0.3f);
 	
 	gCoordinator.AddComponent<Transform>(
 		bullet,
@@ -127,7 +128,7 @@ void PlayerSystem::FireBullet(Transform& transform)
 
 	// attach a BoxCollider
 	BoxCollider bulletBoxCollider = BoxCollider();
-	bulletBoxCollider.boundingBox = glm::vec3(1);
+	bulletBoxCollider.boundingBox = glm::vec3(0.3);
 	gCoordinator.AddComponent<BoxCollider>(
 		bullet,
 		bulletBoxCollider

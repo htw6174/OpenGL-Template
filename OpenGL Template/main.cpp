@@ -5,6 +5,7 @@
 #include "BoxCollider.hpp"
 #include "Player.hpp"
 #include "Bullet.hpp"
+#include "AsteroidSpawner.hpp"
 
 #include "Coordinator.hpp"
 #include "MeshUtils.h"
@@ -14,6 +15,7 @@
 #include "BoxColliderSystem.hpp"
 #include "PlayerSystem.hpp"
 #include "BulletSystem.hpp"
+#include "AsteroidSpawnerSystem.hpp"
 
 #include "Event.hpp"
 
@@ -177,6 +179,15 @@ int main(void) {
 		);
 
 	//boxColliderSystem->Subscribe(player, TestCollisionCallback);
+
+#pragma region CreateAsteroidSpawner
+	Entity spawner = gCoordinator.CreateEntity();
+	Transform spawnerTransform = Transform();
+	spawnerTransform.SetPosition(glm::vec3(0.0, -2.0, 0.0));
+	gCoordinator.AddComponent(spawner, spawnerTransform);
+
+#pragma endregion
+
 
 	Player playerComponent = Player();
 	//playerComponent.speed = 10.0f;
