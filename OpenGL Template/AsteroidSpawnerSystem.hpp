@@ -2,9 +2,13 @@
 
 #include "System.hpp"
 
-class AsteroidSpawnerSystem : System
+class AsteroidSpawnerSystem : public System
 {
+public:
 	void Init() override;
 
 	void Update(float deltaTime) override;
+private:
+	float spawnCounter;
+
 };

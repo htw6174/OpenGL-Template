@@ -37,6 +37,8 @@ std::shared_ptr<RenderSystem> renderSystem;
 std::shared_ptr<BoxColliderSystem> boxColliderSystem;
 std::shared_ptr<PlayerSystem> playerSystem;
 std::shared_ptr<BulletSystem> bulletSystem;
+std::shared_ptr<AsteroidSpawnerSystem> asteroidSpawnerSystem;
+
 
 void window_size_callback(GLFWwindow* win, int newWidth, int newHeight) {
 	aspect = (float)newWidth / (float)newHeight;
@@ -81,6 +83,7 @@ int main(void) {
 	gCoordinator.RegisterComponent<BoxCollider>();
 	gCoordinator.RegisterComponent<Player>();
 	gCoordinator.RegisterComponent<Bullet>();
+	gCoordinator.RegisterComponent<AsteroidSpawner>();
 
 
 	renderSystem = gCoordinator.RegisterSystem<RenderSystem>();
@@ -104,7 +107,7 @@ int main(void) {
 		Signature signature;
 		signature.set(gCoordinator.GetComponentType<Transform>());
 		signature.set(gCoordinator.GetComponentType<Player>());
-		gCoordinator.SetSystemSignature<PlayerSystem>(signature); // TODO: Shouldn't this have a renderable on it?
+		gCoordinator.SetSystemSignature<PlayerSystem>(signature);
 	}
 
 	bulletSystem = gCoordinator.RegisterSystem<BulletSystem>();
@@ -115,6 +118,14 @@ int main(void) {
 		signature.set(gCoordinator.GetComponentType<Bullet>());
 		signature.set(gCoordinator.GetComponentType<Renderable>());
 		gCoordinator.SetSystemSignature<BulletSystem>(signature);
+	}
+
+	asteroidSpawnerSystem = gCoordinator.RegisterSystem<AsteroidSpawnerSystem>();
+	{
+		Signature signature;
+		signature.set(gCoordinator.GetComponentType<Transform>());
+		signature.set(gCoordinator.GetComponentType<AsteroidSpawner>());
+		gCoordinator.SetSystemSignature<AsteroidSpawnerSystem>(signature);
 	}
 
 	gCoordinator.InitSystems();
@@ -184,8 +195,11 @@ int main(void) {
 	Entity spawner = gCoordinator.CreateEntity();
 	Transform spawnerTransform = Transform();
 	spawnerTransform.SetPosition(glm::vec3(0.0, -2.0, 0.0));
-	gCoordinator.AddComponent(spawner, spawnerTransform);
+	gCoordinator.AddComponent<Transform>(spawner, spawnerTransform);
 
+	AsteroidSpawner asteroidSpawner = AsteroidSpawner();
+	gCoordinator.AddComponent<AsteroidSpawner>(spawner, asteroidSpawner);
+	
 #pragma endregion
 
 

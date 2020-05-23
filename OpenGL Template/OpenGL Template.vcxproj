@@ -146,6 +146,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="AsteroidSpawnerSystem.cpp" />
     <ClCompile Include="BoxCollider.hpp" />
     <ClCompile Include="BoxColliderSystem.cpp" />
     <ClCompile Include="BulletSystem.cpp" />
@@ -156,6 +157,8 @@
     <ClCompile Include="Utils.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AsteroidSpawner.hpp" />
+    <ClInclude Include="AsteroidSpawnerSystem.hpp" />
     <ClInclude Include="BoxColliderSystem.hpp" />
     <ClInclude Include="Bullet.hpp" />
     <ClInclude Include="BulletSystem.hpp" />

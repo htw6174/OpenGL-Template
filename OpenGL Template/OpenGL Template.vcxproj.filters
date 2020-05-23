@@ -51,6 +51,9 @@
     <ClCompile Include="BulletSystem.cpp">
       <Filter>Source Files\Systems</Filter>
     </ClCompile>
+    <ClCompile Include="AsteroidSpawnerSystem.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -121,6 +124,12 @@
     </ClInclude>
     <ClInclude Include="BulletSystem.hpp">
       <Filter>Source Files\Systems</Filter>
+    </ClInclude>
+    <ClInclude Include="AsteroidSpawner.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="AsteroidSpawnerSystem.hpp">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
