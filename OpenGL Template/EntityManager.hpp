@@ -29,18 +29,17 @@ public:
 		mAvailableEntities.pop();
 		++mLivingEntityCount;
 
-		std::cout << "Living: " << mLivingEntityCount << std::endl;
 		return id;
 	}
 
 	void DestroyEntity(Entity entity)
 	{
+		assert(mLivingEntityCount > 0 && "Tried destroying entity when there were none to destroy!"); 
 		assert(entity < MAX_ENTITIES && "Entity out of range.");
 
 		mSignatures[entity].reset();
 		mAvailableEntities.push(entity);
 		--mLivingEntityCount;
-		std::cout << "Living: " << mLivingEntityCount << std::endl;
 	}
 
 	bool EntityExists(Entity entity)
