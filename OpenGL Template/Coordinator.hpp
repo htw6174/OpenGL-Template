@@ -4,7 +4,6 @@
 #include "EntityManager.hpp"
 #include "SystemManager.hpp"
 #include "Types.hpp"
-#include <iostream>
 #include <typeinfo>
 
 #include <GLFW\glfw3.h>
@@ -112,18 +111,10 @@ public:
 	{
 		try
 		{
-			if (HasComponent<T>(entity))
-			{
-				return mComponentManager->GetComponent<T>(entity);
-			}
-			else 
-			{
-				throw;
-			}
+			return mComponentManager->GetComponent<T>(entity);
 		}
 		catch (...)
 		{
-			std::cout << "Tried to retrieve non-existent component " << typeid(T).name() << " on entity " << entity << std::endl;
 			throw;
 		}
 	}
