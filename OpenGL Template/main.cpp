@@ -209,7 +209,7 @@ int main(void) {
 	gCoordinator.AddComponent<Transform>(spawner, spawnerTransform);
 
 	AsteroidSpawner asteroidSpawner = AsteroidSpawner();
-	asteroidSpawner.Period = 0.5f;
+	asteroidSpawner.Period = 0.25f;
 	asteroidSpawner.MaxCount = 50;
 	gCoordinator.AddComponent<AsteroidSpawner>(spawner, asteroidSpawner);
 	

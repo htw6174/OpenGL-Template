@@ -43,6 +43,7 @@ public:
 
 	void DestroyEntity(Entity entity)
 	{
+		// TODO: Implement delayed destruction
 		mEntityManager->DestroyEntity(entity);
 
 		mComponentManager->EntityDestroyed(entity);
