@@ -52,7 +52,10 @@
       <Filter>Source Files\Systems</Filter>
     </ClCompile>
     <ClCompile Include="AsteroidSpawnerSystem.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Systems</Filter>
+    </ClCompile>
+    <ClCompile Include="AsteroidSystem.cpp">
+      <Filter>Source Files\Systems</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -129,6 +132,12 @@
       <Filter>Source Files\Systems</Filter>
     </ClInclude>
     <ClInclude Include="AsteroidSpawner.hpp">
+      <Filter>Source Files\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="AsteroidSystem.hpp">
+      <Filter>Source Files\Systems</Filter>
+    </ClInclude>
+    <ClInclude Include="Asteroid.hpp">
       <Filter>Source Files\Components</Filter>
     </ClInclude>
   </ItemGroup>

@@ -3,6 +3,7 @@
 #include "Renderable.hpp"
 #include "Transform.hpp"
 #include "AsteroidSpawner.hpp"
+#include "Asteroid.hpp"
 
 #include "MeshUtils.h"
 #include "Shapes.hpp"
@@ -21,6 +22,6 @@ public:
 
 	void Update(float deltaTime) override;
 private:
-	float spawnCounter;
-	void SpawnAsteroid();
+	float spawnTimer;
+	void SpawnAsteroid(glm::vec3 position, glm::vec3 initialVelocity, glm::vec3 initialRotationalVeclocity);
 };

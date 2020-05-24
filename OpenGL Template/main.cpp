@@ -6,6 +6,7 @@
 #include "Player.hpp"
 #include "Bullet.hpp"
 #include "AsteroidSpawner.hpp"
+#include "Asteroid.hpp"
 
 #include "Coordinator.hpp"
 #include "MeshUtils.h"
@@ -16,6 +17,7 @@
 #include "PlayerSystem.hpp"
 #include "BulletSystem.hpp"
 #include "AsteroidSpawnerSystem.hpp"
+#include "AsteroidSystem.hpp"
 
 #include "Event.hpp"
 
@@ -38,6 +40,7 @@ std::shared_ptr<BoxColliderSystem> boxColliderSystem;
 std::shared_ptr<PlayerSystem> playerSystem;
 std::shared_ptr<BulletSystem> bulletSystem;
 std::shared_ptr<AsteroidSpawnerSystem> asteroidSpawnerSystem;
+std::shared_ptr<AsteroidSystem> asteroidSystem;
 
 
 void window_size_callback(GLFWwindow* win, int newWidth, int newHeight) {
@@ -84,6 +87,7 @@ int main(void) {
 	gCoordinator.RegisterComponent<Player>();
 	gCoordinator.RegisterComponent<Bullet>();
 	gCoordinator.RegisterComponent<AsteroidSpawner>();
+	gCoordinator.RegisterComponent<Asteroid>();
 
 
 	renderSystem = gCoordinator.RegisterSystem<RenderSystem>();
@@ -126,6 +130,14 @@ int main(void) {
 		signature.set(gCoordinator.GetComponentType<Transform>());
 		signature.set(gCoordinator.GetComponentType<AsteroidSpawner>());
 		gCoordinator.SetSystemSignature<AsteroidSpawnerSystem>(signature);
+	}
+
+	asteroidSystem = gCoordinator.RegisterSystem<AsteroidSystem>();
+	{
+		Signature signature;
+		signature.set(gCoordinator.GetComponentType<Transform>());
+		signature.set(gCoordinator.GetComponentType<Asteroid>());
+		gCoordinator.SetSystemSignature<AsteroidSystem>(signature);
 	}
 
 	gCoordinator.InitSystems();

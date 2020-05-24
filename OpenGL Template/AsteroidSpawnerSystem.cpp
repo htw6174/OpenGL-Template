@@ -6,7 +6,7 @@ extern std::shared_ptr <RenderSystem> renderSystem;
 void AsteroidSpawnerSystem::Init()
 {
 	srand(time(0));
-	spawnCounter = 0.0;
+	spawnTimer = 0.0;
 }
 
 void AsteroidSpawnerSystem::Update(float deltaTime)
@@ -15,26 +15,30 @@ void AsteroidSpawnerSystem::Update(float deltaTime)
 	{
 		auto& spawnerTransform = gCoordinator.GetComponent<Transform>(entity);
 		auto& asteroidSpawner = gCoordinator.GetComponent<AsteroidSpawner>(entity);
-		spawnCounter += deltaTime;
-		if (spawnCounter > asteroidSpawner.Period)
+		spawnTimer += deltaTime;
+		if (spawnTimer > asteroidSpawner.Period && asteroidSpawner.CurrentCount<asteroidSpawner.MaxCount)
 		{
-			//spawn asteroid
-			SpawnAsteroid();
+			float randPosX = static_cast <float> (rand()) / static_cast <float> (RAND_MAX) * 20 - 10;
+			float randPosY = static_cast <float> (rand()) / static_cast <float> (RAND_MAX) * 20 - 10;
+			float randVelX = static_cast <float> (rand()) / static_cast <float> (RAND_MAX) * 8 - 4;
+			float randVelY = static_cast <float> (rand()) / static_cast <float> (RAND_MAX) * 8 - 4;
 
-			spawnCounter = 0.0f;
+			//spawn asteroid
+			SpawnAsteroid(glm::vec3(randPosX, randPosY, 0.f), glm::vec3(randVelX, randVelY, 0.0f), glm::vec3(0.f, 0.f, 0.0f));
+
+			spawnTimer = 0.0f;
+			asteroidSpawner.CurrentCount++;
 		}
 	}
 }
 
-void AsteroidSpawnerSystem::SpawnAsteroid()
+void AsteroidSpawnerSystem::SpawnAsteroid(glm::vec3 position, glm::vec3 initialVelocity, glm::vec3 initialRotationalVeclocity)
 {
 	Entity asteroid = gCoordinator.CreateEntity();
 
 	Transform asteroidTransform = Transform();
-	// Setup random rotation and scale
-	float randX = static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
-	float randY = static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
-	asteroidTransform.SetPosition(randX * 20 - 10, randY * 20 - 10, 0.0f);
+
+	asteroidTransform.SetPosition(position);
 	
 	gCoordinator.AddComponent<Transform>(
 		asteroid,
@@ -50,6 +54,18 @@ void AsteroidSpawnerSystem::SpawnAsteroid()
 		asteroid,
 		asteroidRenderable
 	);
-
 	renderSystem->SetupShader();
+
+	// TODO: Add collider
+
+	// Add Asteroid Component
+	Asteroid asteroidComponent = Asteroid();
+	asteroidComponent.velocity = initialVelocity;
+	asteroidComponent.rotationalVelocity = initialRotationalVeclocity;
+	gCoordinator.AddComponent<Asteroid>(
+		asteroid,
+		asteroidComponent
+	);
+	
+
 }

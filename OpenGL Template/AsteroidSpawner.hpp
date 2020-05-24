@@ -5,8 +5,10 @@
 struct AsteroidSpawner : Component
 {
 public:
-	// Total number to spawn
-	int Count;
+	// current Number
+	int CurrentCount = 0;
+	// Total number 
+	int MaxCount = 20;
 	// Delay between spawns
-	float Period;
+	float Period = 1.;
 };
