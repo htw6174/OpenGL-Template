@@ -125,11 +125,11 @@
     <ClInclude Include="BulletSystem.hpp">
       <Filter>Source Files\Systems</Filter>
     </ClInclude>
-    <ClInclude Include="AsteroidSpawner.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="AsteroidSpawnerSystem.hpp">
-      <Filter>Header Files</Filter>
+      <Filter>Source Files\Systems</Filter>
+    </ClInclude>
+    <ClInclude Include="AsteroidSpawner.hpp">
+      <Filter>Source Files\Components</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

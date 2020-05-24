@@ -198,6 +198,7 @@ int main(void) {
 	gCoordinator.AddComponent<Transform>(spawner, spawnerTransform);
 
 	AsteroidSpawner asteroidSpawner = AsteroidSpawner();
+	asteroidSpawner.Period = 0.05f;
 	gCoordinator.AddComponent<AsteroidSpawner>(spawner, asteroidSpawner);
 	
 #pragma endregion

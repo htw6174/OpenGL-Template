@@ -4,8 +4,9 @@
 
 struct AsteroidSpawner : Component
 {
+public:
 	// Total number to spawn
 	int Count;
 	// Delay between spawns
-	float Frequency;
+	float Period;
 };
