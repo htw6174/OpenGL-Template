@@ -4,6 +4,7 @@
 #include "Transform.hpp"
 #include "AsteroidSpawner.hpp"
 #include "Asteroid.hpp"
+#include "BoxCollider.hpp"
 
 #include "MeshUtils.h"
 #include "Shapes.hpp"

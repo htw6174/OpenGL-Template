@@ -136,6 +136,7 @@ int main(void) {
 	{
 		Signature signature;
 		signature.set(gCoordinator.GetComponentType<Transform>());
+		signature.set(gCoordinator.GetComponentType<BoxCollider>());
 		signature.set(gCoordinator.GetComponentType<Asteroid>());
 		gCoordinator.SetSystemSignature<AsteroidSystem>(signature);
 	}

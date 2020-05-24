@@ -15,6 +15,7 @@ void AsteroidSpawnerSystem::Update(float deltaTime)
 	{
 		auto& spawnerTransform = gCoordinator.GetComponent<Transform>(entity);
 		auto& asteroidSpawner = gCoordinator.GetComponent<AsteroidSpawner>(entity);
+
 		spawnTimer += deltaTime;
 		if (spawnTimer > asteroidSpawner.Period && asteroidSpawner.CurrentCount<asteroidSpawner.MaxCount)
 		{
@@ -56,7 +57,14 @@ void AsteroidSpawnerSystem::SpawnAsteroid(glm::vec3 position, glm::vec3 initialV
 	);
 	renderSystem->SetupShader();
 
-	// TODO: Add collider
+	//  Add BoxCollider
+	BoxCollider asteroidBoxCollider = BoxCollider();
+	asteroidBoxCollider.boundingBox = glm::vec3(1.0);
+	gCoordinator.AddComponent<BoxCollider>(
+		asteroid,
+		asteroidBoxCollider
+		);
+
 
 	// Add Asteroid Component
 	Asteroid asteroidComponent = Asteroid();
@@ -66,6 +74,8 @@ void AsteroidSpawnerSystem::SpawnAsteroid(glm::vec3 position, glm::vec3 initialV
 		asteroid,
 		asteroidComponent
 	);
+
+
 	
 
 }
