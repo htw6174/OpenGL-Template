@@ -57,9 +57,9 @@ void init(GLFWwindow* window)
 
 void TestCollisionCallback(Entity owner, Entity other) {
 	// TODO: Find another way of identifing entities now that they are an alias for a uint
-	std::cout << "Entity " << owner << " collided with entity " << other << std::endl;
+	std::cout << "TestCollisionCallback: Entity " << owner << " collided with entity " << other << std::endl;
 	//gCoordinator.DestroyEntity(owner);
-	gCoordinator.DestroyEntity(other);
+	gCoordinator.DestroyEntity(owner);
 }
 
 int main(void) {
@@ -202,8 +202,6 @@ int main(void) {
 		playerCollider
 		);
 
-	//boxColliderSystem->Subscribe(player, TestCollisionCallback);
-
 #pragma region CreateAsteroidSpawner
 	Entity spawner = gCoordinator.CreateEntity();
 	Transform spawnerTransform = Transform();
@@ -211,7 +209,8 @@ int main(void) {
 	gCoordinator.AddComponent<Transform>(spawner, spawnerTransform);
 
 	AsteroidSpawner asteroidSpawner = AsteroidSpawner();
-	asteroidSpawner.Period = 0.05f;
+	asteroidSpawner.Period = 0.5f;
+	asteroidSpawner.MaxCount = 1;
 	gCoordinator.AddComponent<AsteroidSpawner>(spawner, asteroidSpawner);
 	
 #pragma endregion
@@ -233,10 +232,10 @@ int main(void) {
 		// Calculate delta time between the previous and current frame
 		double currentTime = glfwGetTime();
 		float deltaTime = static_cast<float>(currentTime - previousTime);
-		deltaTime = clamp(deltaTime, 0.0f, 0.1f);
+		deltaTime = clamp(deltaTime, 0.0f, 0.02f);
 		previousTime = currentTime;
 		// TODO: Add universal update for systems to the system manager
-		gCoordinator.UpdateSystems(deltaTime);;
+		gCoordinator.UpdateSystems(deltaTime);
 
 		glfwSwapBuffers(window);
 		glfwPollEvents();
@@ -275,6 +274,7 @@ int main(void) {
 		}
 	}
 
+	std::cout << "program exit" << std::endl;
 	glfwDestroyWindow(window);
 	glfwTerminate();
 	exit(EXIT_SUCCESS);

@@ -12,6 +12,8 @@
 #include "System.hpp"
 #include "Coordinator.hpp"
 #include "RenderSystem.hpp"
+#include "BoxColliderSystem.hpp"
+#include "AsteroidSystem.hpp"
 
 #include <cstdlib>
 #include <ctime>

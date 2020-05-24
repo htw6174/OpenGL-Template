@@ -116,6 +116,10 @@ public:
 			{
 				return mComponentManager->GetComponent<T>(entity);
 			}
+			else 
+			{
+				throw;
+			}
 		}
 		catch (...)
 		{

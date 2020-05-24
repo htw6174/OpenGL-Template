@@ -2,6 +2,7 @@
 
 extern Coordinator gCoordinator;
 extern std::shared_ptr <RenderSystem> renderSystem;
+extern std::shared_ptr <BoxColliderSystem> boxColliderSystem;
 
 void AsteroidSpawnerSystem::Init()
 {
@@ -21,8 +22,8 @@ void AsteroidSpawnerSystem::Update(float deltaTime)
 		{
 			float randPosX = static_cast <float> (rand()) / static_cast <float> (RAND_MAX) * 20 - 10;
 			float randPosY = static_cast <float> (rand()) / static_cast <float> (RAND_MAX) * 20 - 10;
-			float randVelX = static_cast <float> (rand()) / static_cast <float> (RAND_MAX) * 8 - 4;
-			float randVelY = static_cast <float> (rand()) / static_cast <float> (RAND_MAX) * 8 - 4;
+			float randVelX = 100.f;//static_cast <float> (rand()) / static_cast <float> (RAND_MAX) * 8 - 4;
+			float randVelY = 10.f;// static_cast <float> (rand()) / static_cast <float> (RAND_MAX) * 8 - 4;
 
 			//spawn asteroid
 			SpawnAsteroid(glm::vec3(randPosX, randPosY, 0.f), glm::vec3(randVelX, randVelY, 0.0f), glm::vec3(0.f, 0.f, 0.0f));
@@ -59,7 +60,7 @@ void AsteroidSpawnerSystem::SpawnAsteroid(glm::vec3 position, glm::vec3 initialV
 
 	//  Add BoxCollider
 	BoxCollider asteroidBoxCollider = BoxCollider();
-	asteroidBoxCollider.boundingBox = glm::vec3(1.0);
+	asteroidBoxCollider.boundingBox = glm::vec3(2.0);
 	gCoordinator.AddComponent<BoxCollider>(
 		asteroid,
 		asteroidBoxCollider
@@ -75,7 +76,5 @@ void AsteroidSpawnerSystem::SpawnAsteroid(glm::vec3 position, glm::vec3 initialV
 		asteroidComponent
 	);
 
-
-	
-
+	boxColliderSystem->Subscribe(asteroid, AsteroidSystem::CollisionCallback);
 }

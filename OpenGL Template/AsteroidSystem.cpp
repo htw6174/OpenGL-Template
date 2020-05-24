@@ -1,6 +1,5 @@
 #include "AsteroidSystem.hpp"
 
-
 extern Coordinator gCoordinator;
 extern std::shared_ptr<BoxColliderSystem> boxColliderSystem;
 
@@ -8,7 +7,7 @@ void AsteroidSystem::Init()
 {
 	for (auto const& entity : mEntities)
 	{
-		boxColliderSystem->Subscribe(entity, CollisionCallback);
+		
 	}
 }
 
@@ -45,5 +44,10 @@ void AsteroidSystem::Update(float deltaTime)
 
 void AsteroidSystem::CollisionCallback(Entity owner, Entity other)
 {
-	gCoordinator.DestroyEntity(other);
+	std::cout << "In Asteroid System: Entity " << owner << " collided with entity " << other << std::endl;
+
+	if (!gCoordinator.HasComponent<Player>(other))
+	{
+		gCoordinator.DestroyEntity(owner);
+	}
 }

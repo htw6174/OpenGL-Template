@@ -1,7 +1,11 @@
+#pragma once
+
 #include "Asteroid.hpp"
 
 #include "BoxColliderSystem.hpp"
 #include "Transform.hpp"
+#include "Player.hpp"
+#include "Camera.hpp"
 
 #include "System.hpp"
 #include "Coordinator.hpp"
@@ -13,6 +17,6 @@ class AsteroidSystem : public System
 public:
 	void Init() override;
 	void Update(float deltaTime) override;
-	void CollisionCallback(Entity owner, Entity other);
+	static void CollisionCallback(Entity owner, Entity other);
 
 };
