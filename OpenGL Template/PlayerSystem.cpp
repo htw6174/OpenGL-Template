@@ -2,6 +2,7 @@
 
 extern Coordinator gCoordinator;
 extern std::shared_ptr <RenderSystem> renderSystem;
+extern std::shared_ptr <BoxColliderSystem> boxColliderSystem;
 
 bool PlayerSystem::moveForward = false;
 bool PlayerSystem::rotateLeft = false;
@@ -141,5 +142,6 @@ void PlayerSystem::FireBullet(Transform& transform)
 		bulletComponent
 	);
 
+	boxColliderSystem->Subscribe(bullet, BulletSystem::CollisionCallback);
 
 }

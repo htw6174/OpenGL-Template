@@ -193,7 +193,7 @@ int main(void) {
 		cubeCollider
 		);
 
-	boxColliderSystem->Subscribe(cube, TestCollisionCallback);
+	//boxColliderSystem->Subscribe(cube, TestCollisionCallback);
 
 	BoxCollider playerCollider = BoxCollider();
 	playerCollider.boundingBox = glm::vec3(2);
@@ -210,7 +210,7 @@ int main(void) {
 
 	AsteroidSpawner asteroidSpawner = AsteroidSpawner();
 	asteroidSpawner.Period = 0.5f;
-	asteroidSpawner.MaxCount = 1;
+	asteroidSpawner.MaxCount = 50;
 	gCoordinator.AddComponent<AsteroidSpawner>(spawner, asteroidSpawner);
 	
 #pragma endregion

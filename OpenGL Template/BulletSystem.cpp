@@ -1,6 +1,8 @@
 #include "BulletSystem.hpp"
 #include "Coordinator.hpp"
 #include "Transform.hpp"
+#include "Asteroid.hpp"
+#include "Player.hpp"
 #include "Bullet.hpp"
 
 extern Coordinator gCoordinator;
@@ -39,5 +41,14 @@ void BulletSystem::Update(float deltaTime)
 			gCoordinator.DestroyEntity(bullet);
 		}
 		bulletsToDestroy.clear();
+	}
+}
+
+void BulletSystem::CollisionCallback(Entity owner, Entity other)
+{
+	if (!(gCoordinator.HasComponent<Bullet>(other) || gCoordinator.HasComponent<Player>(other)))
+	{
+		std::cout << "Bullet hit asteroid!" << std::endl;
+		gCoordinator.DestroyEntity(owner);
 	}
 }

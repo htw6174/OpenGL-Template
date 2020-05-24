@@ -11,4 +11,6 @@ public:
 	void Init() override;
 
 	void Update(float deltaTime) override;
+
+	static void CollisionCallback(Entity owner, Entity other);
 };

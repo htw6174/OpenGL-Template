@@ -44,9 +44,9 @@ void AsteroidSystem::Update(float deltaTime)
 
 void AsteroidSystem::CollisionCallback(Entity owner, Entity other)
 {
-	std::cout << "In Asteroid System: Entity " << owner << " collided with entity " << other << std::endl;
+	//std::cout << "In Asteroid System: Entity " << owner << " collided with entity " << other << std::endl;
 
-	if (!gCoordinator.HasComponent<Player>(other))
+	if (!gCoordinator.HasComponent<Asteroid>(other))
 	{
 		gCoordinator.DestroyEntity(owner);
 	}

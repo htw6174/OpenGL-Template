@@ -12,6 +12,8 @@
 #include "System.hpp"
 #include "Coordinator.hpp"
 #include "RenderSystem.hpp"
+#include "BoxColliderSystem.hpp"
+#include "BulletSystem.hpp"
 
 #include <GLFW/glfw3.h>
 
