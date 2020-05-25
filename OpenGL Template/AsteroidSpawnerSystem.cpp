@@ -20,7 +20,7 @@ void AsteroidSpawnerSystem::Update(float deltaTime)
 		spawnTimer += deltaTime;
 		if (spawnTimer > asteroidSpawner.Period && asteroidSpawner.CurrentCount<asteroidSpawner.MaxCount)
 		{
-			float randPosX = static_cast <float> (rand()) / static_cast <float> (RAND_MAX) * 20 - 10;
+			float randPosX = -14.999999f;//static_cast <float> (rand()) / static_cast <float> (RAND_MAX) - 10;
 			float randPosY = static_cast <float> (rand()) / static_cast <float> (RAND_MAX) * 20 - 10;
 			float randVelX = static_cast <float> (rand()) / static_cast <float> (RAND_MAX) * 8 - 4;
 			float randVelY = static_cast <float> (rand()) / static_cast <float> (RAND_MAX) * 8 - 4;

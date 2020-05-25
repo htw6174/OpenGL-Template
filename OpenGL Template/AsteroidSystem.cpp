@@ -21,22 +21,22 @@ void AsteroidSystem::Update(float deltaTime)
 
 		asteroidTransform.Translate(asteroidComponent.velocity * deltaTime);
 
-		if (asteroidTransform.GetPosition().x > 12.0f)
+		if (asteroidTransform.GetPosition().x > 15.0f)
 		{
-			asteroidTransform.Translate(glm::vec3(-24.0, 0., 0.));
+			asteroidTransform.Translate(glm::vec3(-30.0, 0., 0.));
 		}
-		if (asteroidTransform.GetPosition().x < -12.0f)
+		if (asteroidTransform.GetPosition().x < -15.0f)
 		{
-			asteroidTransform.Translate(glm::vec3(24.0, 0., 0.));
+			asteroidTransform.Translate(glm::vec3(30.0, 0., 0.));
 		}
 
-		if (asteroidTransform.GetPosition().y > 12.0f)
+		if (asteroidTransform.GetPosition().y > 15.0f)
 		{
-			asteroidTransform.Translate(glm::vec3( 0., -24.0, 0.));
+			asteroidTransform.Translate(glm::vec3( 0., -30.0, 0.));
 		}	
-		if (asteroidTransform.GetPosition().y < -12.0f)
+		if (asteroidTransform.GetPosition().y < -15.0f)
 		{
-			asteroidTransform.Translate(glm::vec3(0., 24.0, 0.));
+			asteroidTransform.Translate(glm::vec3(0., 30.0, 0.));
 		}
 
 	}

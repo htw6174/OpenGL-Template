@@ -85,9 +85,12 @@ void PlayerSystem::Update(float deltaTime)
 			transform.RotateByRadians(-scaledTurnSpeed, glm::vec3(0.0f, 0.0f, 1.0f));
 		}
 
-		if (firing)
+
+		player.fireTimer += deltaTime;
+		if (firing && player.fireTimer>player.firePeriod)
 		{
 			FireBullet(transform);
+			player.fireTimer = 0.0f;
 		}
 
 	}

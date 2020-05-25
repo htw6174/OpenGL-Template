@@ -26,6 +26,8 @@ public:
 	static bool rotateLeft;
 	static bool rotateRight;
 	static bool firing;
+	float fireTimer;
+
 	void Init() override;
 	void Update(float deltaTime) override;
 	void FireBullet(Transform& transform);
