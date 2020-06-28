@@ -47,6 +47,7 @@ void RenderSystem::Update(float deltaTime)
 		mvLoc = glGetUniformLocation(renderable.renderingProgram, "mv_matrix");
 		projLoc = glGetUniformLocation(renderable.renderingProgram, "proj_matrix");
 		tintLoc = glGetUniformLocation(renderable.renderingProgram, "tint");
+		objectIdLoc = glGetUniformLocation(renderable.renderingProgram, "objectId");
 
 		pMat = camera.projectionTransform;
 
@@ -62,6 +63,7 @@ void RenderSystem::Update(float deltaTime)
 		glUniformMatrix4fv(mvLoc, 1, GL_FALSE, glm::value_ptr(mvMat));
 		glUniformMatrix4fv(projLoc, 1, GL_FALSE, glm::value_ptr(pMat));
 		glUniform3fv(tintLoc, 1, glm::value_ptr(renderable.tint));
+		glUniform1i(objectIdLoc, GLint(entity));
 
 		glEnable(GL_CULL_FACE);
 		glFrontFace(renderable.windingOrder);

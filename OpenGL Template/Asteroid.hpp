@@ -7,7 +7,8 @@ struct Asteroid : Component
 {
 public:
 	glm::vec3 velocity;
-	glm::vec3 rotationalVelocity;
+	glm::vec3 rotationAxis;
+	float rotationSpeed;
 
 	
 };

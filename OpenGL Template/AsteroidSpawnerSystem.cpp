@@ -19,13 +19,19 @@ void AsteroidSpawnerSystem::Update(float deltaTime)
 		spawnTimer += deltaTime;
 		if (spawnTimer > asteroidSpawner.Period && asteroidSpawner.CurrentCount<asteroidSpawner.MaxCount)
 		{
+			// Next to the left edge of the screen
 			float randPosX = -14.999999f;//static_cast <float> (rand()) / static_cast <float> (RAND_MAX) - 10;
 			float randPosY = static_cast <float> (rand()) / static_cast <float> (RAND_MAX) * 20 - 10;
+
 			float randVelX = static_cast <float> (rand()) / static_cast <float> (RAND_MAX) * 8 - 4;
 			float randVelY = static_cast <float> (rand()) / static_cast <float> (RAND_MAX) * 8 - 4;
 
+			float randRotX = static_cast <float> (rand()) / static_cast <float> (RAND_MAX) * 2 - 1;
+			float randRotY = static_cast <float> (rand()) / static_cast <float> (RAND_MAX) * 2 - 1;
+			float randRotZ = static_cast <float> (rand()) / static_cast <float> (RAND_MAX) * 2 - 1;
+
 			//spawn asteroid
-			SpawnAsteroid(glm::vec3(randPosX, randPosY, 0.f), glm::vec3(randVelX, randVelY, 0.0f), glm::vec3(0.f, 0.f, 0.0f));
+			SpawnAsteroid(glm::vec3(randPosX, randPosY, 0.f), glm::vec3(randVelX, randVelY, 0.0f), glm::normalize(glm::vec3(randRotX, randRotY, randRotZ)), 100.0);
 
 			spawnTimer = 0.0f;
 			asteroidSpawner.CurrentCount++;
@@ -33,7 +39,7 @@ void AsteroidSpawnerSystem::Update(float deltaTime)
 	}
 }
 
-void AsteroidSpawnerSystem::SpawnAsteroid(glm::vec3 position, glm::vec3 initialVelocity, glm::vec3 initialRotationalVeclocity)
+void AsteroidSpawnerSystem::SpawnAsteroid(glm::vec3 position, glm::vec3 initialVelocity, glm::vec3 rotationAxis, float rotationSpeed)
 {
 	Entity asteroid = gCoordinator.CreateEntity();
 
@@ -50,7 +56,7 @@ void AsteroidSpawnerSystem::SpawnAsteroid(glm::vec3 position, glm::vec3 initialV
 	asteroidRenderable.VAO = MeshUtils::LoadFromArray(cubeVertexPositions, 108);
 	asteroidRenderable.windingOrder = GL_CW;
 	asteroidRenderable.renderingProgram = ShaderUtils::ShaderMap["Asteroid"];
-	asteroidRenderable.tint = glm::vec3(.5, .05, 0.);
+	asteroidRenderable.tint = glm::vec3(.2, .1, 0.);
 	gCoordinator.AddComponent<Renderable>(
 		asteroid,
 		asteroidRenderable
@@ -68,7 +74,8 @@ void AsteroidSpawnerSystem::SpawnAsteroid(glm::vec3 position, glm::vec3 initialV
 	// Add Asteroid Component
 	Asteroid asteroidComponent = Asteroid();
 	asteroidComponent.velocity = initialVelocity;
-	asteroidComponent.rotationalVelocity = initialRotationalVeclocity;
+	asteroidComponent.rotationAxis = rotationAxis;
+	asteroidComponent.rotationSpeed = rotationSpeed;
 	gCoordinator.AddComponent<Asteroid>(
 		asteroid,
 		asteroidComponent

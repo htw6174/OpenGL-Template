@@ -26,5 +26,5 @@ public:
 	void Update(float deltaTime) override;
 private:
 	float spawnTimer;
-	void SpawnAsteroid(glm::vec3 position, glm::vec3 initialVelocity, glm::vec3 initialRotationalVeclocity);
+	void SpawnAsteroid(glm::vec3 position, glm::vec3 initialVelocity, glm::vec3 rotationAxis, float rotationSpeed);
 };

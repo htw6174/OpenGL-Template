@@ -9,5 +9,6 @@ uniform vec3 tint;
 
 void main(void)
 {
-	color = vec4(tint, 1.);
+	vec3 col = varyingColor.xyz * tint;
+	color = vec4(col, 1.);
 }

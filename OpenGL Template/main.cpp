@@ -178,7 +178,7 @@ int main(void) {
 	playerRenderable.VAO = MeshUtils::LoadFromArray(pyramidVertexPositions, 54);
 	playerRenderable.windingOrder = GL_CCW;
 	playerRenderable.renderingProgram = ShaderUtils::ShaderMap["Player"];
-	playerRenderable.tint = glm::vec3(0., 0., 1.);
+	playerRenderable.tint = glm::vec3(0., 0., .5);
 
 	gCoordinator.AddComponent<Renderable>(
 		player,
@@ -201,6 +201,8 @@ int main(void) {
 		player,
 		playerCollider
 		);
+
+	gCoordinator.DestroyEntity(cube);
 
 #pragma region CreateAsteroidSpawner
 	Entity spawner = gCoordinator.CreateEntity();
@@ -255,24 +257,24 @@ int main(void) {
 		frame++;
 		*/
 
-		float sinTime = deltaTime * sin(glfwGetTime());
-		float cosTime = deltaTime * cos(glfwGetTime());
-
+		//float sinTime = deltaTime * sin(glfwGetTime());
+		//float cosTime = deltaTime * cos(glfwGetTime());
+		//
 		// TODO: Find a way to handle getting a non-existant component without try-catch blocks
-		try
-		{
-			auto& CubeTrans = gCoordinator.GetComponent<Transform>(cube);
-			CubeTrans.Translate(glm::vec3(cosTime * 3.f, sinTime * 3.f, 0.0f));
-			//CubeTrans->SetRotationEulerAngles(glm::vec3(0.0f, glm::pi<float>() / 4.0f, 0.0f));
-			CubeTrans.RotateByDegrees( 100. * sinTime, glm::vec3(1.0f, 1.0f, 1.0f));
-			CubeTrans.SetScale(glm::vec3(2.5f, 0.5f, 2.5f));
-			//CubeTrans->RotateByDegrees(2.0f, glm::vec3(sinTime, cosTime, 0.0f));
-			//std::cout << CubeTrans->GetRotation().w << std::endl;
-		}
-		catch (...)
-		{
-
-		}
+		//try
+		//{
+		//	auto& CubeTrans = gCoordinator.GetComponent<Transform>(cube);
+		//	CubeTrans.Translate(glm::vec3(cosTime * 3.f, sinTime * 3.f, 0.0f));
+		//	//CubeTrans->SetRotationEulerAngles(glm::vec3(0.0f, glm::pi<float>() / 4.0f, 0.0f));
+		//	CubeTrans.RotateByDegrees( 100. * sinTime, glm::vec3(1.0f, 1.0f, 1.0f));
+		//	CubeTrans.SetScale(glm::vec3(2.5f, 0.5f, 2.5f));
+		//	//CubeTrans->RotateByDegrees(2.0f, glm::vec3(sinTime, cosTime, 0.0f));
+		//	//std::cout << CubeTrans->GetRotation().w << std::endl;
+		//}
+		//catch (...)
+		//{
+		//
+		//}
 	}
 
 	std::cout << "program exit" << std::endl;

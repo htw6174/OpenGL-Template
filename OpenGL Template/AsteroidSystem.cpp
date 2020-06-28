@@ -20,6 +20,7 @@ void AsteroidSystem::Update(float deltaTime)
 
 
 		asteroidTransform.Translate(asteroidComponent.velocity * deltaTime);
+		asteroidTransform.RotateByDegrees(asteroidComponent.rotationSpeed * deltaTime, asteroidComponent.rotationAxis);
 
 		if (asteroidTransform.GetPosition().x > 15.0f)
 		{
