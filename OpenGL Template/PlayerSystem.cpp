@@ -1,7 +1,6 @@
 #include "PlayerSystem.hpp"
 
 extern Coordinator gCoordinator;
-extern std::shared_ptr <RenderSystem> renderSystem;
 extern std::shared_ptr <BoxColliderSystem> boxColliderSystem;
 
 bool PlayerSystem::moveForward = false;
@@ -121,14 +120,12 @@ void PlayerSystem::FireBullet(Transform& transform)
 	Renderable bulletRenderable = Renderable();
 	bulletRenderable.VAO = MeshUtils::LoadFromArray(pyramidVertexPositions, 54);
 	bulletRenderable.windingOrder = GL_CCW;
-	bulletRenderable.VertShader = "vertShader.glsl";
-	bulletRenderable.FragShader = "fragShader.glsl";
+	bulletRenderable.renderingProgram = ShaderUtils::ShaderMap["Asteroid"];
+	bulletRenderable.tint = glm::vec3(.6, .6, .6);
 	gCoordinator.AddComponent<Renderable>(
 		bullet,
 		bulletRenderable
 	);
-
-	renderSystem->SetupShader();
 
 	// attach a BoxCollider
 	BoxCollider bulletBoxCollider = BoxCollider();

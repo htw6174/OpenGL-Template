@@ -27,12 +27,8 @@ public:
 
 	void Update(float deltaTime) override;
 
-	void SetupShader();
-
-	GLuint mainRenderingProgram;
-
 private:
-	GLuint mvLoc, projLoc;
+	GLuint mvLoc, projLoc, tintLoc;
 
 	glm::mat4 pMat, vMat, mMat, mvMat;
 };

@@ -1,11 +1,13 @@
 #version 430
 
-out vec4 FragColor;
+in vec4 varyingColor;
+out vec4 color;
 
-in vec2 TexCoord;
+uniform mat4 mv_matrix;
+uniform mat4 proj_matrix;
+uniform vec3 tint;
 
-uniform sampler2D Texture;
-
-void main() {
-	FragColor = texture(Texture, TexCoord);
+void main(void)
+{
+	color = vec4(tint, 1.);
 }

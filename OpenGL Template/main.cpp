@@ -10,6 +10,7 @@
 
 #include "Coordinator.hpp"
 #include "MeshUtils.h"
+#include "ShaderUtils.h"
 #include "Shapes.hpp"
 
 #include "RenderSystem.hpp"
@@ -79,6 +80,8 @@ int main(void) {
 
 	init(window);
 	gCoordinator.Init(window);
+
+	ShaderUtils::LoadAllShaders();
 
 	gCoordinator.RegisterComponent<Camera>();
 	gCoordinator.RegisterComponent<Transform>();
@@ -164,9 +167,7 @@ int main(void) {
 	Renderable cubeRenderable = Renderable();
 	cubeRenderable.VAO = MeshUtils::LoadFromArray(cubeVertexPositions, 108);
 	cubeRenderable.windingOrder = GL_CW;
-	//here im just setting the shader filenames, but we could probably do this better
-	cubeRenderable.VertShader = "vertShader.glsl";
-	cubeRenderable.FragShader = "fragShader.glsl";
+	cubeRenderable.renderingProgram = ShaderUtils::ShaderMap["Asteroid"];
 
 	gCoordinator.AddComponent<Renderable>(
 		cube,
@@ -176,15 +177,13 @@ int main(void) {
 	Renderable playerRenderable = Renderable();
 	playerRenderable.VAO = MeshUtils::LoadFromArray(pyramidVertexPositions, 54);
 	playerRenderable.windingOrder = GL_CCW;
-	playerRenderable.VertShader = "vertShader.glsl";
-	playerRenderable.FragShader = "fragShader.glsl";
+	playerRenderable.renderingProgram = ShaderUtils::ShaderMap["Player"];
 
 	gCoordinator.AddComponent<Renderable>(
 		player,
 		playerRenderable
 		);
 
-	renderSystem->SetupShader();
 
 	BoxCollider cubeCollider = BoxCollider();
 	cubeCollider.boundingBox = glm::vec3(2);

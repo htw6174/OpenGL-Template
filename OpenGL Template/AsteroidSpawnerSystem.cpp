@@ -1,7 +1,6 @@
 #include "AsteroidSpawnerSystem.hpp"
 
 extern Coordinator gCoordinator;
-extern std::shared_ptr <RenderSystem> renderSystem;
 extern std::shared_ptr <BoxColliderSystem> boxColliderSystem;
 
 void AsteroidSpawnerSystem::Init()
@@ -50,13 +49,12 @@ void AsteroidSpawnerSystem::SpawnAsteroid(glm::vec3 position, glm::vec3 initialV
 	Renderable asteroidRenderable = Renderable();
 	asteroidRenderable.VAO = MeshUtils::LoadFromArray(cubeVertexPositions, 108);
 	asteroidRenderable.windingOrder = GL_CW;
-	asteroidRenderable.VertShader = "vertShader.glsl";
-	asteroidRenderable.FragShader = "fragShader.glsl";
+	asteroidRenderable.renderingProgram = ShaderUtils::ShaderMap["Asteroid"];
+	asteroidRenderable.tint = glm::vec3(.5, .05, 0.);
 	gCoordinator.AddComponent<Renderable>(
 		asteroid,
 		asteroidRenderable
 	);
-	renderSystem->SetupShader();
 
 	//  Add BoxCollider
 	BoxCollider asteroidBoxCollider = BoxCollider();

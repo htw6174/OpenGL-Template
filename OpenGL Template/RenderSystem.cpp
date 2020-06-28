@@ -26,14 +26,12 @@ void RenderSystem::Init()
 		mCamera,
 		cam
 		);
-
-	mainRenderingProgram = Utils::createShaderProgram("vertShader.glsl", "fragShader.glsl");
 }
 
 void RenderSystem::Update(float deltaTime)
 {
 	glClear(GL_DEPTH_BUFFER_BIT);
-	glClearColor(1.0, 0.8, 0.6, 1.0);
+	glClearColor(0.0, 0.0, 0.0, 1.0);
 	glClear(GL_COLOR_BUFFER_BIT);
 
 	for (auto const& entity : mEntities)
@@ -48,6 +46,7 @@ void RenderSystem::Update(float deltaTime)
 
 		mvLoc = glGetUniformLocation(renderable.renderingProgram, "mv_matrix");
 		projLoc = glGetUniformLocation(renderable.renderingProgram, "proj_matrix");
+		tintLoc = glGetUniformLocation(renderable.renderingProgram, "tint");
 
 		pMat = camera.projectionTransform;
 
@@ -62,6 +61,7 @@ void RenderSystem::Update(float deltaTime)
 
 		glUniformMatrix4fv(mvLoc, 1, GL_FALSE, glm::value_ptr(mvMat));
 		glUniformMatrix4fv(projLoc, 1, GL_FALSE, glm::value_ptr(pMat));
+		glUniform3fv(tintLoc, 1, glm::value_ptr(renderable.tint));
 
 		glEnable(GL_CULL_FACE);
 		glFrontFace(renderable.windingOrder);
@@ -71,15 +71,5 @@ void RenderSystem::Update(float deltaTime)
 		glBindVertexArray(renderable.VAO);
 		glDrawArrays(GL_TRIANGLES, 0, 36);
 		Utils::checkOpenGLError();
-	}
-}
-
-// TODO: Move this into a shader setup class
-void RenderSystem::SetupShader()
-{
-	for (auto const& entity : mEntities)
-	{
-		auto& renderable = gCoordinator.GetComponent<Renderable>(entity);
-		renderable.renderingProgram = mainRenderingProgram;
 	}
 }

@@ -11,7 +11,7 @@
 
 #include "System.hpp"
 #include "Coordinator.hpp"
-#include "RenderSystem.hpp"
+#include "ShaderUtils.h"
 #include "BoxColliderSystem.hpp"
 #include "AsteroidSystem.hpp"
 
