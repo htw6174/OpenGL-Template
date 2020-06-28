@@ -167,7 +167,7 @@ int main(void) {
 	Renderable cubeRenderable = Renderable();
 	cubeRenderable.VAO = MeshUtils::LoadFromArray(cubeVertexPositions, 108);
 	cubeRenderable.windingOrder = GL_CW;
-	cubeRenderable.renderingProgram = ShaderUtils::ShaderMap["Asteroid"];
+	cubeRenderable.renderingProgram = ShaderUtils::ShaderMap["Plane"];
 
 	gCoordinator.AddComponent<Renderable>(
 		cube,
@@ -178,6 +178,7 @@ int main(void) {
 	playerRenderable.VAO = MeshUtils::LoadFromArray(pyramidVertexPositions, 54);
 	playerRenderable.windingOrder = GL_CCW;
 	playerRenderable.renderingProgram = ShaderUtils::ShaderMap["Player"];
+	playerRenderable.tint = glm::vec3(0., 0., 1.);
 
 	gCoordinator.AddComponent<Renderable>(
 		player,

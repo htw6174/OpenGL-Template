@@ -120,7 +120,7 @@ void PlayerSystem::FireBullet(Transform& transform)
 	Renderable bulletRenderable = Renderable();
 	bulletRenderable.VAO = MeshUtils::LoadFromArray(pyramidVertexPositions, 54);
 	bulletRenderable.windingOrder = GL_CCW;
-	bulletRenderable.renderingProgram = ShaderUtils::ShaderMap["Asteroid"];
+	bulletRenderable.renderingProgram = ShaderUtils::ShaderMap["Bullet"];
 	bulletRenderable.tint = glm::vec3(.6, .6, .6);
 	gCoordinator.AddComponent<Renderable>(
 		bullet,

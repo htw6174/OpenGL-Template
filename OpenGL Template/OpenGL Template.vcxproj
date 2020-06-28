@@ -196,10 +196,12 @@
     <ClInclude Include="Utils.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="fragShader.glsl" />
-    <None Include="fragShader2.glsl" />
-    <None Include="vertShader.glsl" />
-    <None Include="vertShader2.glsl" />
+    <None Include="asteroid.frag" />
+    <None Include="asteroid.vert" />
+    <None Include="bullet.frag" />
+    <None Include="default.vert" />
+    <None Include="default.frag" />
+    <None Include="player.frag" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="..\..\..\checkerBoard.png" />

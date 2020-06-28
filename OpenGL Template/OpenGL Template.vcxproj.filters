@@ -148,16 +148,22 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="vertShader.glsl">
+    <None Include="asteroid.vert">
       <Filter>Source Files\Shaders</Filter>
     </None>
-    <None Include="fragShader.glsl">
+    <None Include="default.vert">
       <Filter>Source Files\Shaders</Filter>
     </None>
-    <None Include="vertShader2.glsl">
+    <None Include="asteroid.frag">
       <Filter>Source Files\Shaders</Filter>
     </None>
-    <None Include="fragShader2.glsl">
+    <None Include="bullet.frag">
+      <Filter>Source Files\Shaders</Filter>
+    </None>
+    <None Include="player.frag">
+      <Filter>Source Files\Shaders</Filter>
+    </None>
+    <None Include="default.frag">
       <Filter>Source Files\Shaders</Filter>
     </None>
   </ItemGroup>
