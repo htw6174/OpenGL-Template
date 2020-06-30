@@ -197,13 +197,13 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="asteroid.frag" />
-    <None Include="asteroid.geo" />
+    <None Include="asteroid.geom" />
     <None Include="asteroid.vert" />
     <None Include="bullet.frag" />
     <None Include="default.vert" />
     <None Include="default.frag" />
     <None Include="player.frag" />
-    <None Include="player.geo" />
+    <None Include="player.geom" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="..\..\..\checkerBoard.png" />

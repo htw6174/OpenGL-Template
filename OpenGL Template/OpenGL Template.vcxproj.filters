@@ -166,10 +166,10 @@
     <None Include="default.frag">
       <Filter>Source Files\Shaders</Filter>
     </None>
-    <None Include="player.geo">
+    <None Include="asteroid.geom">
       <Filter>Source Files\Shaders</Filter>
     </None>
-    <None Include="asteroid.geo">
+    <None Include="player.geom">
       <Filter>Source Files\Shaders</Filter>
     </None>
   </ItemGroup>
