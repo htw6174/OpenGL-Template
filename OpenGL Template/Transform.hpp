@@ -50,11 +50,22 @@ public:
 
 	void RotateByDegrees(float degrees, glm::vec3 axis)
 	{
-		this->rotation = glm::angleAxis(glm::radians(degrees), axis) * this->rotation;
+		RotateByRadians(glm::radians(degrees), axis);
 	}
 
 	void RotateByRadians(float radians, glm::vec3 axis)
 	{
-		this->rotation *= glm::angleAxis(radians, axis);
+		this->rotation *= glm::angleAxis(radians, glm::normalize(axis));
+		this->rotation.w = glm::clamp(this->rotation.w, -1.0f, 1.0f);
+	}
+
+	glm::vec3 GetScale()
+	{
+		return this->scale;
+	}
+
+	void SetScale(glm::vec3 scale)
+	{
+		this->scale = scale;
 	}
 };

@@ -2,7 +2,7 @@
 
 #include "Component.hpp"
 #include <glm\glm.hpp>
-#include <GL\glew.h>
+
 
 struct BoxCollider : Component {
 public:

@@ -31,7 +31,7 @@ void RenderSystem::Init()
 void RenderSystem::Update(float deltaTime)
 {
 	glClear(GL_DEPTH_BUFFER_BIT);
-	glClearColor(1.0, 0.8, 0.6, 1.0);
+	glClearColor(0.0, 0.0, 0.0, 1.0);
 	glClear(GL_COLOR_BUFFER_BIT);
 
 	for (auto const& entity : mEntities)
@@ -46,17 +46,24 @@ void RenderSystem::Update(float deltaTime)
 
 		mvLoc = glGetUniformLocation(renderable.renderingProgram, "mv_matrix");
 		projLoc = glGetUniformLocation(renderable.renderingProgram, "proj_matrix");
+		tintLoc = glGetUniformLocation(renderable.renderingProgram, "tint");
+		objectIdLoc = glGetUniformLocation(renderable.renderingProgram, "objectId");
 
 		pMat = camera.projectionTransform;
 
 		vMat = glm::translate(glm::mat4(1.0f), -camTransform.GetPosition());
-		mMat = glm::translate(glm::mat4(1.0f), transform.GetPosition());
+		glm::mat4x4 scaleMatrix = glm::scale(glm::mat4(1.0f), transform.GetScale());
+		glm::mat4x4 translateMatrix = glm::translate(glm::mat4(1.0f), transform.GetPosition());
 		glm::mat4x4 rotationMatrix = glm::toMat4(transform.GetRotation());
+		mMat = translateMatrix;
 		mMat *= rotationMatrix;
+		mMat *= scaleMatrix;
 		mvMat = vMat * mMat;
 
 		glUniformMatrix4fv(mvLoc, 1, GL_FALSE, glm::value_ptr(mvMat));
 		glUniformMatrix4fv(projLoc, 1, GL_FALSE, glm::value_ptr(pMat));
+		glUniform3fv(tintLoc, 1, glm::value_ptr(renderable.tint));
+		glUniform1i(objectIdLoc, GLint(entity));
 
 		glEnable(GL_CULL_FACE);
 		glFrontFace(renderable.windingOrder);
@@ -66,15 +73,5 @@ void RenderSystem::Update(float deltaTime)
 		glBindVertexArray(renderable.VAO);
 		glDrawArrays(GL_TRIANGLES, 0, 36);
 		Utils::checkOpenGLError();
-	}
-}
-
-// TODO: Move this into a shader setup class
-void RenderSystem::SetupShader()
-{
-	for (auto const& entity : mEntities)
-	{
-		auto& renderable = gCoordinator.GetComponent<Renderable>(entity);
-		renderable.renderingProgram = Utils::createShaderProgram(renderable.VertShader, renderable.FragShader);
 	}
 }

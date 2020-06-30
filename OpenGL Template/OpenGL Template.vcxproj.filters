@@ -48,6 +48,18 @@
     <ClCompile Include="PlayerSystem.cpp">
       <Filter>Source Files\Systems</Filter>
     </ClCompile>
+    <ClCompile Include="BulletSystem.cpp">
+      <Filter>Source Files\Systems</Filter>
+    </ClCompile>
+    <ClCompile Include="AsteroidSpawnerSystem.cpp">
+      <Filter>Source Files\Systems</Filter>
+    </ClCompile>
+    <ClCompile Include="AsteroidSystem.cpp">
+      <Filter>Source Files\Systems</Filter>
+    </ClCompile>
+    <ClCompile Include="ShaderUtils.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -110,18 +122,54 @@
     <ClInclude Include="Player.hpp">
       <Filter>Source Files\Components</Filter>
     </ClInclude>
+    <ClInclude Include="Shapes.hpp">
+      <Filter>Source Files\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Bullet.hpp">
+      <Filter>Source Files\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="BulletSystem.hpp">
+      <Filter>Source Files\Systems</Filter>
+    </ClInclude>
+    <ClInclude Include="AsteroidSpawnerSystem.hpp">
+      <Filter>Source Files\Systems</Filter>
+    </ClInclude>
+    <ClInclude Include="AsteroidSpawner.hpp">
+      <Filter>Source Files\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="AsteroidSystem.hpp">
+      <Filter>Source Files\Systems</Filter>
+    </ClInclude>
+    <ClInclude Include="Asteroid.hpp">
+      <Filter>Source Files\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="ShaderUtils.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="vertShader.glsl">
+    <None Include="asteroid.vert">
       <Filter>Source Files\Shaders</Filter>
     </None>
-    <None Include="fragShader.glsl">
+    <None Include="default.vert">
       <Filter>Source Files\Shaders</Filter>
     </None>
-    <None Include="vertShader2.glsl">
+    <None Include="asteroid.frag">
       <Filter>Source Files\Shaders</Filter>
     </None>
-    <None Include="fragShader2.glsl">
+    <None Include="bullet.frag">
+      <Filter>Source Files\Shaders</Filter>
+    </None>
+    <None Include="player.frag">
+      <Filter>Source Files\Shaders</Filter>
+    </None>
+    <None Include="default.frag">
+      <Filter>Source Files\Shaders</Filter>
+    </None>
+    <None Include="player.geo">
+      <Filter>Source Files\Shaders</Filter>
+    </None>
+    <None Include="asteroid.geo">
       <Filter>Source Files\Shaders</Filter>
     </None>
   </ItemGroup>

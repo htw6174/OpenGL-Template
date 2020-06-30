@@ -6,6 +6,7 @@
 #include <cassert>
 #include <unordered_map>
 #include <exception>
+#include <iostream>
 
 class IComponentArray
 {
@@ -68,7 +69,8 @@ public:
 		// Check if entity does not exist in entity to index map (find will return an iterator past the bounds of the list if not found)
 		if (mEntityToIndexMap.find(entity) == mEntityToIndexMap.end())
 		{
-			throw std::runtime_error("dont work");
+			std::cout << "Tried to retrieve non-existent component " << typeid(T).name() << " on entity " << entity << std::endl;
+			throw 1;
 		}
 
 		return mComponentArray[mEntityToIndexMap[entity]];

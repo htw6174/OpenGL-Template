@@ -4,6 +4,7 @@
 #include <queue>
 #include <array>
 #include <cassert>
+#include <iostream>
 
 class EntityManager
 {
@@ -33,6 +34,7 @@ public:
 
 	void DestroyEntity(Entity entity)
 	{
+		assert(mLivingEntityCount > 0 && "Tried destroying entity when there were none to destroy!"); 
 		assert(entity < MAX_ENTITIES && "Entity out of range.");
 
 		mSignatures[entity].reset();

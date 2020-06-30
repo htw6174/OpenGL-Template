@@ -27,10 +27,8 @@ public:
 
 	void Update(float deltaTime) override;
 
-	void SetupShader();
-
 private:
-	GLuint mvLoc, projLoc;
+	GLuint mvLoc, projLoc, tintLoc, objectIdLoc;
 
 	glm::mat4 pMat, vMat, mMat, mvMat;
 };

@@ -92,11 +92,13 @@
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp17</LanguageStandard>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <IgnoreSpecificDefaultLibraries>MSVCRT;%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <AdditionalLibraryDirectories>$(ProjectDir)Template\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -120,13 +122,17 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>glew32.lib;glfw3.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>glew32.lib;glfw3.lib;opengl32.lib;msvcrt.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <IgnoreSpecificDefaultLibraries>MSVCRT%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <AdditionalLibraryDirectories>$(ProjectDir)Template\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -137,6 +143,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -146,16 +153,26 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="AsteroidSpawnerSystem.cpp" />
+    <ClCompile Include="AsteroidSystem.cpp" />
     <ClCompile Include="BoxCollider.hpp" />
     <ClCompile Include="BoxColliderSystem.cpp" />
+    <ClCompile Include="BulletSystem.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MeshUtils.cpp" />
     <ClCompile Include="PlayerSystem.cpp" />
     <ClCompile Include="RenderSystem.cpp" />
+    <ClCompile Include="ShaderUtils.cpp" />
     <ClCompile Include="Utils.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Asteroid.hpp" />
+    <ClInclude Include="AsteroidSpawner.hpp" />
+    <ClInclude Include="AsteroidSpawnerSystem.hpp" />
+    <ClInclude Include="AsteroidSystem.hpp" />
     <ClInclude Include="BoxColliderSystem.hpp" />
+    <ClInclude Include="Bullet.hpp" />
+    <ClInclude Include="BulletSystem.hpp" />
     <ClInclude Include="Camera.hpp" />
     <ClInclude Include="Component.hpp" />
     <ClInclude Include="ComponentArray.hpp" />
@@ -169,6 +186,8 @@
     <ClInclude Include="PlayerSystem.hpp" />
     <ClInclude Include="Renderable.hpp" />
     <ClInclude Include="RenderSystem.hpp" />
+    <ClInclude Include="ShaderUtils.h" />
+    <ClInclude Include="Shapes.hpp" />
     <ClInclude Include="SOIL.h" />
     <ClInclude Include="System.hpp" />
     <ClInclude Include="SystemManager.hpp" />
@@ -177,10 +196,14 @@
     <ClInclude Include="Utils.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="fragShader.glsl" />
-    <None Include="fragShader2.glsl" />
-    <None Include="vertShader.glsl" />
-    <None Include="vertShader2.glsl" />
+    <None Include="asteroid.frag" />
+    <None Include="asteroid.geo" />
+    <None Include="asteroid.vert" />
+    <None Include="bullet.frag" />
+    <None Include="default.vert" />
+    <None Include="default.frag" />
+    <None Include="player.frag" />
+    <None Include="player.geo" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="..\..\..\checkerBoard.png" />
