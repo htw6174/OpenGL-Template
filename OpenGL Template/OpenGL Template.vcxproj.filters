@@ -172,6 +172,12 @@
     <None Include="player.geom">
       <Filter>Source Files\Shaders</Filter>
     </None>
+    <None Include="asteroid.tese">
+      <Filter>Source Files\Shaders</Filter>
+    </None>
+    <None Include="asteroid.tesc">
+      <Filter>Source Files\Shaders</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Image Include="..\..\..\checkerBoard.png">

@@ -233,6 +233,7 @@ int main(void) {
 	double previousTime = glfwGetTime();
 
 	while (!glfwWindowShouldClose(window)) {
+
 		// Calculate delta time between the previous and current frame
 		double currentTime = glfwGetTime();
 		float deltaTime = static_cast<float>(currentTime - previousTime);

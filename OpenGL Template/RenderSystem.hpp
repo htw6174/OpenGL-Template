@@ -28,7 +28,7 @@ public:
 	void Update(float deltaTime) override;
 
 private:
-	GLuint mvLoc, projLoc, tintLoc, objectIdLoc;
+	GLuint mMatLoc, mvLoc, projLoc, tintLoc, objectIdLoc;
 
 	glm::mat4 pMat, vMat, mMat, mvMat;
 };

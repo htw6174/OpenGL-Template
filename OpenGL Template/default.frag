@@ -9,5 +9,6 @@ uniform vec3 tint;
 
 void main(void)
 {
-	color = vec4(tint, 1.);
+	vec3 tinty = vec3(1.0f, 0.0f, 0.0f);
+	color = vec4(tinty, 1.);
 }

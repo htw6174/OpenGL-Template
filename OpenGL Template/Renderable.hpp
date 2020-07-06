@@ -12,4 +12,5 @@ struct Renderable : Component
 
 	// GL options
 	GLenum windingOrder = GL_CCW;
+	GLenum primitiveType = GL_TRIANGLES;
 };

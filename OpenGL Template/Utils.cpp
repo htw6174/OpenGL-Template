@@ -135,7 +135,7 @@ GLuint Utils::createShaderProgram(const char* vp, const char* tCS, const char* t
 	return vtfprogram;
 }
 
-GLuint Utils::createShaderProgram(const char* vp, const char* tCS, const char* tES, char* gp, const char* fp) {
+GLuint Utils::createShaderProgram(const char* vp, const char* tCS, const char* tES, const char* gp, const char* fp) {
 	GLuint vShader = prepareShader(GL_VERTEX_SHADER, vp);
 	GLuint tcShader = prepareShader(GL_TESS_CONTROL_SHADER, tCS);
 	GLuint teShader = prepareShader(GL_TESS_EVALUATION_SHADER, tES);

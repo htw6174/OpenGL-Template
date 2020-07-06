@@ -44,6 +44,7 @@ void RenderSystem::Update(float deltaTime)
 
 		glUseProgram(renderable.renderingProgram);
 
+		mMatLoc = glGetUniformLocation(renderable.renderingProgram, "m_matrix");
 		mvLoc = glGetUniformLocation(renderable.renderingProgram, "mv_matrix");
 		projLoc = glGetUniformLocation(renderable.renderingProgram, "proj_matrix");
 		tintLoc = glGetUniformLocation(renderable.renderingProgram, "tint");
@@ -60,6 +61,7 @@ void RenderSystem::Update(float deltaTime)
 		mMat *= scaleMatrix;
 		mvMat = vMat * mMat;
 
+		glUniformMatrix4fv(mMatLoc, 1, GL_FALSE, glm::value_ptr(mMat));
 		glUniformMatrix4fv(mvLoc, 1, GL_FALSE, glm::value_ptr(mvMat));
 		glUniformMatrix4fv(projLoc, 1, GL_FALSE, glm::value_ptr(pMat));
 		glUniform3fv(tintLoc, 1, glm::value_ptr(renderable.tint));
@@ -71,7 +73,7 @@ void RenderSystem::Update(float deltaTime)
 		glDepthFunc(GL_LEQUAL);
 
 		glBindVertexArray(renderable.VAO);
-		glDrawArrays(GL_TRIANGLES, 0, 36);
+		glDrawArrays(renderable.primitiveType, 0, 36);
 		Utils::checkOpenGLError();
 	}
 }

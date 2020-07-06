@@ -131,7 +131,7 @@
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalDependencies>glew32.lib;glfw3.lib;opengl32.lib;msvcrt.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <IgnoreSpecificDefaultLibraries>MSVCRT%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <IgnoreSpecificDefaultLibraries>MSVCRT;LIBCMT%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
       <AdditionalLibraryDirectories>$(ProjectDir)Template\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
@@ -198,6 +198,8 @@
   <ItemGroup>
     <None Include="asteroid.frag" />
     <None Include="asteroid.geom" />
+    <None Include="asteroid.tesc" />
+    <None Include="asteroid.tese" />
     <None Include="asteroid.vert" />
     <None Include="bullet.frag" />
     <None Include="default.vert" />

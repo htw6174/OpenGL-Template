@@ -3,7 +3,9 @@
 layout (triangles) in;
 layout (triangle_strip, max_vertices = 3) out;
 
-out vec3 position;
+in vec3 geomWorldPosition[];
+
+out vec3 fragWorldPosition;
 out vec3 normal;
 
 // Will only work with one winding order
@@ -16,7 +18,7 @@ vec3 GetNormal()
 
 void main(void)
 {
-	position = gl_in[0].gl_Position.xyz;
+	fragWorldPosition = geomWorldPosition[0];
 	normal = GetNormal();
 	gl_Position = gl_in[0].gl_Position;
 	EmitVertex();
