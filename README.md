@@ -3,7 +3,7 @@ A tribute to the game _Asteroids (1979)_ in our Game Engine. Written in C++ usin
 
 [![Generic badge](https://img.shields.io/badge/Status-WIP-Yellow.svg)](https://shields.io/)
 
-![ProjectGif](/images/shootingAsteroids.gif)
+![ProjectGif](/images/asteroids.gif)
 
 
 ## Build
